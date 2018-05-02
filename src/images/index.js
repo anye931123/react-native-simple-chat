@@ -1,0 +1,1 @@
+export const avatarImg=require('./user.png')
