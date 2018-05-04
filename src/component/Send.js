@@ -14,11 +14,16 @@ export default class Send extends Component{
     }
 
     render(){
-        const {sendStatus,sendStyle,sendTextStyle}= this.props
+        const {sendStatus,sendStyle,sendTextStyle,sendPress}= this.props
         return(
             <View style={styles.container}>
                 <TouchableOpacity
-                    style={[styles.sendBtn,sendStyle,sendStatus&&{backgroundColor:Colors.gray}]}
+                    onPress={()=>{
+                        if(sendStatus){
+                            sendPress()
+                        }
+                    }}
+                    style={[styles.sendBtn,sendStyle,!sendStatus&&{backgroundColor:Colors.gray}]}
                 >
                     <Text style={[styles.sendBtnText,sendTextStyle]}>发送</Text>
                 </TouchableOpacity>

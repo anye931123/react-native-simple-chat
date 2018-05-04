@@ -4,5 +4,7 @@ export default {
     transparent: 'transparent',
     white:"white",
     gray:'#9c9c9c',
-    blue:"#01aded"
+    blue:"#01aded",
+
+
 }

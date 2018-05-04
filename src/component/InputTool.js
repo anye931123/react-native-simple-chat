@@ -41,7 +41,7 @@ export default class InputTool extends Component {
             text,
             keyboardAppearance,
             textInputStyle,
-
+            textInputProps
         } = this.props
         return (
             <TextInput
@@ -51,13 +51,14 @@ export default class InputTool extends Component {
                 onChange={this.onContentSizeChange}
                 onContentSizeChange={this.onContentSizeChange}
                 onChangeText={this.onChangeText}
-                style={[styles.textInput]}
+                style={[styles.textInput,textInputStyle]}
                 autoFocus={textInputAutoFocus}
                 value={text}
                 accessibilityLabel={text||placeholder}
                 enablesReturnKeyAutomatically
                 underlineColorAndroid={'transparent'}
                 keyboardAppearance={keyboardAppearance}
+                {...textInputProps}
             />
         )
 

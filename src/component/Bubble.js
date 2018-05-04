@@ -15,18 +15,27 @@ export default class Bubble extends Component {
 
     render() {
 
-        const {position, bubbleColor,message} = this.props
+        const {position, bubbleColor, message, nameShow} = this.props
         return (
-            <View style={[styles.container, position ? {justifyContent: 'flex-end'} : {justifyContent: 'flex-start'}]}>
-
+            <View style={[styles.container, position ? {justifyContent: 'flex-end',paddingRight:nameShow?6:4} : {justifyContent: 'flex-start',paddingLeft:nameShow?6:4}]}>
+                <View style={[
+                    nameShow ? styles.triangle : styles.triangleNameFalse,
+                    position ? [
+                            nameShow ? styles.triangleRight : styles.triangleNameFalse, {
+                                borderColor: bubbleColor.right,
+                            backgroundColor:bubbleColor.right
+                            }]
+                        : {
+                            left: 0,
+                            borderColor: bubbleColor.left,
+                            backgroundColor:bubbleColor.left
+                        }]}/>
                 <View
                     style={[styles.textContainer, position ? {backgroundColor: bubbleColor.right} : {backgroundColor: bubbleColor.left}]}>
                     <Text style={styles.textStyle}>{message}</Text>
                 </View>
-                <View style={[styles.triangle, position ? {right: 0, backgroundColor: bubbleColor.right} : {
-                    left: 0,
-                    backgroundColor: bubbleColor.left
-                }]}/>
+
+
             </View>
         )
     }
@@ -37,8 +46,7 @@ export default class Bubble extends Component {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        paddingLeft: 5,
-        paddingRight: 5,
+
         marginLeft: 6,
         marginRight: 6,
         width: Dimensions.get('window').width - 110
@@ -47,20 +55,42 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.blue,
         borderRadius: 10,
         padding: 10,
-        justifyContent:'center'
+        justifyContent: 'center'
 
 
     },
     textStyle: {
         color: Colors.white,
-        fontSize: 13,
+        fontSize: 15,
     },
     triangle: {
         position: "absolute",
-        top: 16,
+        top: 12,
+        width: 0,
+        height: 0,
+        borderStyle: 'solid',
+        borderLeftWidth: 18,
+        borderRightWidth: 14,
+        borderBottomWidth: 7,
+        borderTopWidth: 3,
+        borderBottomLeftRadius: 30,
+    },
+    triangleRight: {
+        right: 0,
+        borderRightWidth: 18,
+        borderLeftWidth: 14,
+        borderBottomWidth: 3,
+        borderTopWidth: 7,
+        borderBottomRightRadius: 30
+
+    },
+
+    triangleNameFalse: {
+        position: "absolute",
+        top: 14,
         height: 10,
         width: 10,
-        backgroundColor: Colors.blue,
         transform: [{rotateZ: '45deg'}]
     }
+
 })

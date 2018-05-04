@@ -13,14 +13,36 @@ import Send from './Send';
 export  default  class Footer extends Component{
     constructor(){
         super()
+        this.state={
+            message:'',
+            sendStatus:false
+        }
     }
 
 
 
+    _onChangedText=(text) => {
+
+        if(text.isEmpty){
+            this.setState({
+                sendStatue:false
+            })
+
+            return
+        }
+        this.setState({
+            message: text,
+            sendStatus:true
+        })
+    }
+
     render(){
+        const {message,sendStatus }=this.state
+        const {sendPress,textInputStyle,textInputProps}=this.props
         return(
-            <KeyboardAvoidingView behavior={Platform.select({
-                android:'height',
+            <KeyboardAvoidingView
+                behavior={Platform.select({
+                android:'padding',
                 ios:'position'
             })}
 
@@ -28,13 +50,23 @@ export  default  class Footer extends Component{
                 <View style={styles.container}
                 >
                 <InputTool
-                    onTextChanged={()=>{}}
+                    onTextChanged={this._onChangedText}
                     onInputSizeChanged={()=>{}}
                     multiline={true}
-
+                    text={message}
+                    textInputStyle={textInputStyle}
+                    textInputProps={textInputProps}
                 />
                 <Send
+                    sendPress={()=>{
+                        sendPress(message)
+                        this.setState({
+                            message:'',
+                            sendStatus:false
+                        })
 
+                    }}
+                    sendStatus={sendStatus}
                 />
                 </View>
             </KeyboardAvoidingView>
