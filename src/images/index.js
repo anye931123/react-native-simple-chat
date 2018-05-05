@@ -13,3 +13,8 @@ export const voiceSelect=require('./voice_select.png')
 export  const emoticon=require('./emoticon.png')
 
 export const emoticonSelect=require('./emoticon_select.png')
+
+export const  add=require('./add.png')
+export const addSelect=require('./addSelect.png')
+
+export const voiceButton=require('./voice_button.png')

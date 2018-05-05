@@ -12,16 +12,13 @@ export default class ToolsButton extends Component {
     constructor() {
         super()
 
-        this.state = {
-            selected: false
-        }
+
     }
 
 
     render() {
 
-        const {selected} = this.state
-        const {normalIcon, selectedIcon, onPress} = this.props
+        const {normalIcon, selectedIcon, onPress, selected } = this.props
         return (
             <View style={styles.container}>
                 <TouchableOpacity onPress={() => {

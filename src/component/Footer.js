@@ -1,4 +1,4 @@
-import React,{Component} from'react';
+import React, {Component} from 'react';
 import {
     View,
     StyleSheet,
@@ -6,98 +6,87 @@ import {
     Platform,
     TouchableOpacity,
 } from 'react-native';
+import _ from 'lodash';
+
 import Colors from '../utils/Colors';
 import InputTool from './InputTool';
 import Send from './Send';
 import MessageTools from './MessageTools';
-export  default  class Footer extends Component{
-    constructor(){
+
+export default class Footer extends Component {
+    constructor() {
         super()
-        this.state={
-            message:'',
-            sendStatus:false,
-            layoutStatus:false
+        this.state = {
+            message: '',
         }
     }
 
 
+    _onChangedText = (text) => {
+        console.log(text.length)
+        const {message} = this.state
 
-    _onChangedText=(text) => {
-
-        if(text.isEmpty){
             this.setState({
-                sendStatue:false,
+                message: text
             })
 
-            return
-        }
-        this.setState({
-            message: text,
-            sendStatus:true
-        })
     }
 
-    render(){
-        const {message,sendStatus,layoutStatus }=this.state
-        const {sendPress,textInputStyle,textInputProps}=this.props
-        return(
+    _onFocus=()=>{
+        this.refs.MessageTools.resetButton()
+    }
+
+    render() {
+        const {message,} = this.state
+        const {sendPress, textInputStyle, textInputProps, animationType,keyboardHide} = this.props
+        return (
             <KeyboardAvoidingView
                 behavior={Platform.select({
-                android:'padding',
-                ios:'position'
-            })}
+                    android: 'padding',
+                    ios: 'position'
+                })}
 
-    >
+            >
                 <View>
-                <View style={[styles.container]}
-                      onLayout={({nativeEvent: { layout: {x, y, width, height}}})=>{
-                          if(height>=158&&!layoutStatus){
-                              this.setState({
-                                  layoutStatus:true
-                              })
-                          }else if(height<158&&layoutStatus) {
-                              this.setState({
-                                  layoutStatus:false
-                              })
+                    <View style={[styles.container]}
+                    >
+                        <InputTool
 
-                          }
+                            onTextChanged={this._onChangedText}
+                            onInputSizeChanged={() => {
+                            }}
+                            multiline={true}
+                            text={message}
+                            textInputStyle={[textInputStyle, {maxHeight: 124}]}
 
-                      }}
-                >
-                <InputTool
-                    onTextChanged={this._onChangedText}
-                    onInputSizeChanged={()=>{}}
-                    multiline={true}
-                    text={message}
-                    textInputStyle={[textInputStyle,layoutStatus&&{height:153}]}
-                    textInputProps={textInputProps}
-                />
-                <Send
-                    sendPress={()=>{
-                        sendPress(message)
-                        this.setState({
-                            message:'',
-                            sendStatus:false,
-                            layoutStatus:false
-                        })
+                            textInputProps={_.assign({onFocus:this._onFocus},textInputProps)}
 
-                    }}
-                    sendStatus={sendStatus}
-                />
-                </View>
-                {/*<MessageTools/>*/}
+                        />
+                        <Send
+                            sendPress={() => {
+                                sendPress(message)
+                                this.setState({
+                                    message: '',
+                                    layoutStatus: false
+                                })
+
+                            }}
+                            sendStatus={!_.isEmpty(message)}
+                        />
+                    </View>
+                    <MessageTools ref={'MessageTools'} keyboardHide={keyboardHide} animationType={animationType}/>
                 </View>
             </KeyboardAvoidingView>
-            )
+        )
     }
 }
 
-const styles=StyleSheet.create({
-    container:{
-        flexDirection:'row',
-        alignItems:'flex-end',
-        padding:7,
-        backgroundColor:Colors.bg
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: 'row',
+        alignItems: 'flex-end',
+        padding: 7,
+        backgroundColor: Colors.bg
     },
 
 })

@@ -65,17 +65,18 @@ export default class ChatPage extends Component{
                 rowHasChanged: (r1, r2) => r1 !== r2
             })
         this.state={
-            keyboardHeight:0
-
+            keyboardHeight:0,
         }
     }
     _keyboardDidShow=(e)=>{
-        console.log('键盘高度',e.endCoordinates.height)
         this.setState({
-            keyboardHeight:e.endCoordinates.height
+            keyboardHeight:e.endCoordinates.height,
         })
         this.refs.messageList.scrollTo({y:0,x:0,animated:false})
+    }
 
+    _keyboardHide=()=>{
+        Keyboard.dismiss()
     }
 
     _keyboardWillHide=(e)=>{
@@ -152,7 +153,8 @@ export default class ChatPage extends Component{
         const {
             messages,
             textInputStyle,
-            textInputProps
+            textInputProps,
+            animationType
         }=this.props
         const {keyboardHeight}=this.state
         let dataSource = this.ds.cloneWithRows(messages)
@@ -175,7 +177,11 @@ export default class ChatPage extends Component{
                     })}}>
                 <Footer textInputStyle={textInputStyle}
                         textInputProps={textInputProps}
-                        sendPress={this.sendPress} />
+                        animationType={animationType }
+                        sendPress={this.sendPress}
+                        keyboardHide={this._keyboardHide}
+
+                />
                 </Animated.View>
             </View>
         )
