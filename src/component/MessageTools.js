@@ -6,24 +6,26 @@ import {
     StyleSheet
 } from 'react-native';
 import * as imgs from '../images';
-import ToolsButtom from './ToolsButtom';
+import ToolsButton from './ToolsButton';
 export default class MessageTools extends Component{
 
     constructor(){
         super()
         this.state={
-
+            onPressType:0,
         }
     }
 
-    render(){
-        // const {}=this.props
-        return(<View style={styles.container}>
-            <ToolsButtom normalIcon={imgs.voice} selectedIcon={imgs.voiceSelect} />
-            <ToolsButtom normalIcon={imgs.picture} selectedIcon={imgs.pictureSelect} />
-            <ToolsButtom normalIcon={imgs.camera} selectedIcon={imgs.cameraSelect} />
-            <ToolsButtom normalIcon={imgs.emoticon} selectedIcon={imgs.emoticonSelect} />
+    Button
 
+    render(){
+         const {onPressType}=this.state
+        return(<View style={styles.container}>
+            <ToolsButton normalIcon={imgs.voice} selectedIcon={imgs.voiceSelect} pressStatus={onPressType==1} onPress={}/>
+            <ToolsButton normalIcon={imgs.picture} selectedIcon={imgs.pictureSelect} pressStatus={onPressType==2} />
+            <ToolsButton normalIcon={imgs.camera} selectedIcon={imgs.cameraSelect} pressStatus={onPressType==3}/>
+            <ToolsButton normalIcon={imgs.emoticon} selectedIcon={imgs.emoticonSelect}  pressStatus={onPressType==4}/>
+            <ToolsButton normalIcon={imgs.add} selectedIcon={imgs.addSelect} pressStatus={onPressType==5}/>
         </View>)
     }
 
