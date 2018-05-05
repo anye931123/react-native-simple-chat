@@ -7,7 +7,7 @@ import {
     StyleSheet
 } from 'react-native'
 
-export default class ToolsButtom extends Component {
+export default class ToolsButton extends Component {
 
     constructor() {
         super()
