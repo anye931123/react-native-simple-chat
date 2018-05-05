@@ -42,6 +42,8 @@ const styles=StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         padding:8,
+        paddingLeft:10,
+        paddingRight:10,
         borderColor:Colors.transparent,
         borderWidth:1,
         borderRadius:5,

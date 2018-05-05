@@ -173,7 +173,9 @@ export default class ChatPage extends Component{
                         android:0,
                         ios:keyboardHeight
                     })}}>
-                <Footer textInputStyle={textInputStyle} textInputProps={textInputProps} sendPress={this.sendPress} />
+                <Footer textInputStyle={textInputStyle}
+                        textInputProps={textInputProps}
+                        sendPress={this.sendPress} />
                 </Animated.View>
             </View>
         )

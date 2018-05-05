@@ -1,21 +1,22 @@
 import React,{Component} from'react';
 import {
     View,
-    TextInput,
     StyleSheet,
-    Keyboard,
     KeyboardAvoidingView,
-    Platform
+    Platform,
+    TouchableOpacity,
 } from 'react-native';
 import Colors from '../utils/Colors';
 import InputTool from './InputTool';
 import Send from './Send';
+import MessageTools from './MessageTools';
 export  default  class Footer extends Component{
     constructor(){
         super()
         this.state={
             message:'',
-            sendStatus:false
+            sendStatus:false,
+            layoutStatus:false
         }
     }
 
@@ -25,7 +26,7 @@ export  default  class Footer extends Component{
 
         if(text.isEmpty){
             this.setState({
-                sendStatue:false
+                sendStatue:false,
             })
 
             return
@@ -37,7 +38,7 @@ export  default  class Footer extends Component{
     }
 
     render(){
-        const {message,sendStatus }=this.state
+        const {message,sendStatus,layoutStatus }=this.state
         const {sendPress,textInputStyle,textInputProps}=this.props
         return(
             <KeyboardAvoidingView
@@ -47,14 +48,28 @@ export  default  class Footer extends Component{
             })}
 
     >
-                <View style={styles.container}
+                <View>
+                <View style={[styles.container]}
+                      onLayout={({nativeEvent: { layout: {x, y, width, height}}})=>{
+                          if(height>=158&&!layoutStatus){
+                              this.setState({
+                                  layoutStatus:true
+                              })
+                          }else if(height<158&&layoutStatus) {
+                              this.setState({
+                                  layoutStatus:false
+                              })
+
+                          }
+
+                      }}
                 >
                 <InputTool
                     onTextChanged={this._onChangedText}
                     onInputSizeChanged={()=>{}}
                     multiline={true}
                     text={message}
-                    textInputStyle={textInputStyle}
+                    textInputStyle={[textInputStyle,layoutStatus&&{height:153}]}
                     textInputProps={textInputProps}
                 />
                 <Send
@@ -62,12 +77,15 @@ export  default  class Footer extends Component{
                         sendPress(message)
                         this.setState({
                             message:'',
-                            sendStatus:false
+                            sendStatus:false,
+                            layoutStatus:false
                         })
 
                     }}
                     sendStatus={sendStatus}
                 />
+                </View>
+                {/*<MessageTools/>*/}
                 </View>
             </KeyboardAvoidingView>
             )

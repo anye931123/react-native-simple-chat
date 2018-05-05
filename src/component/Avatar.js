@@ -27,12 +27,12 @@ export default class Avatar extends Component {
         if (typeof avatar === 'string') {
             return <Image
                 source={{uri: avatar}}
-                style={[styles.avatarStyle,avatarStyle]}
+                style={[styles.avatarStyle,avatarStyle,{backgroundColor:Colors.transparent}]}
             />
         } else if (typeof avatar === 'number') {
             return <Image
                 source={avatar}
-                style={[styles.avatarStyle,avatarStyle]}
+                style={[styles.avatarStyle,avatarStyle,{backgroundColor:Colors.transparent}]}
             />
         } else if (userName !== '') {
 

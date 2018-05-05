@@ -76,10 +76,11 @@ const styles=StyleSheet.create({
 
     container:{
         flexDirection:'row',
-        justifyContent:'center'
+        justifyContent:'center',
+        marginBottom:10
     },
     time:{
-        fontSize:10,
+        fontSize:12,
         color:Colors.gray
     }
 })
