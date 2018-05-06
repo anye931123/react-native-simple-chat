@@ -18,3 +18,5 @@ export const  add=require('./add.png')
 export const addSelect=require('./addSelect.png')
 
 export const voiceButton=require('./voice_button.png')
+
+export const loading=require('./loading.gif')

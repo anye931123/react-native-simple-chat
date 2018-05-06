@@ -5,7 +5,7 @@ import {
     StyleSheet,
     Text
 } from 'react-native';
-import Bubble from './Bubble';
+import BubbleView from './bubble/BubbleView';
 import Avatar from './Avatar';
 
 import Colors from '../utils/Colors';
@@ -18,15 +18,15 @@ export default class Message extends Component {
 
 
     render() {
-        const {data, bubbleColor, myId, avatarStyle,userNameShow,myNameShow,timeStyle,timeTextStyle,timeShow} = this.props
+        const {data, bubbleColor, myId, avatarStyle,userNameShow,myNameShow,timeStyle,timeTextStyle,timeShow,
+            checkImageFn
+        } = this.props
 
         const {
             avatarImg,
             userId,
-            message,
             userName,
             time,
-
         } = data
 
         let position = userId == myId //ture:right
@@ -46,7 +46,7 @@ export default class Message extends Component {
             {!position && <Avatar avatarStyle={avatarStyle.left} avatar={avatarImg} userName={userName}/>}
             <View style={{alignItems: position ? 'flex-end' : 'flex-start'}}>
                 {nameShow&&<Text style={[styles.userName, position ? {marginRight: 10} : {marginLeft: 10}]}>{userName}</Text>}
-                <Bubble position={position} bubbleColor={bubbleColor} nameShow={nameShow}  message={message}/>
+                <BubbleView checkImageFn={checkImageFn} position={position} bubbleColor={bubbleColor} nameShow={nameShow} messageData={data}/>
             </View>
             {position && <Avatar avatarStyle={avatarStyle.right} avatar={avatarImg} userName={userName}/>}
         </View>

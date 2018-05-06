@@ -18,11 +18,23 @@ export default class VoiceOne extends Component {
 
 
     render() {
-
+        const {onVoicePressIn, onVoicePressOut} = this.props
         return (
             <View style={styles.container}>
 
-                <TouchableOpacity style={stylesVoice.button}>
+                <TouchableOpacity
+                    style={stylesVoice.button}
+                    onPressIn={() => {
+                        if (onVoicePressIn) {
+                            onVoicePressIn()
+                        }
+                    }}
+                    onPressOut={()=>{
+                        if(onVoicePressOut){
+                            onVoicePressOut()
+                        }
+                    }}
+                >
 
                     <Image source={imgs.voiceButton} style={stylesVoice.image}/>
                 </TouchableOpacity>

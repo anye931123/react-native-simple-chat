@@ -56,7 +56,7 @@ export default class App extends Component {
 
     }
     sendMessage = (message) => {
-        console.log("")
+
         const {data} = this.state
         let myMessage = {
             type:'user',
@@ -76,11 +76,27 @@ export default class App extends Component {
          }
     }
 
-    render() {
+    sendImageMessagesFn=(images)=>{
+        const {data} = this.state
+        let myMessage = {
+            type:'user',
+            userId:'0000',
+            userName: '小明',
+            images: images,
+            time:new Date()
+        }
+
+        data.unshift(myMessage)
+        this.setState({
+            data: data
+        })
+    }
+        render() {
         const {data} = this.state
         return <ChatPage
             animationType={0}
             sendFn={this.sendMessage}
+            sendImageMessagesFn={this.sendImageMessagesFn}
             messages={data}
             myNameShow={false}
             userNameShow={true}

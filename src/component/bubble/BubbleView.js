@@ -5,41 +5,33 @@ import {
     Text,
     Dimensions
 } from 'react-native';
-import Colors from '../utils/Colors'
+import Colors from '../../utils/Colors'
+import ImageView from "../../widget/ImageView";
+import _ from 'lodash'
+import TextBubble from './TextBubble';
+import ImageBubble from './ImageBubble';
+export default class BubbleView extends Component{
 
-export default class Bubble extends Component {
-    constructor() {
+
+
+
+    constructor(){
         super()
     }
 
 
-    render() {
 
-        const {position, bubbleColor, message, nameShow} = this.props
-        return (
+    render(){
+        const {position, bubbleColor, messageData, nameShow,} = this.props
+        const {message,images}=messageData
+        return(
             <View style={[styles.container, position ? {justifyContent: 'flex-end',paddingRight:nameShow?6:4} : {justifyContent: 'flex-start',paddingLeft:nameShow?6:4}]}>
-                <View style={[
-                    nameShow ? styles.triangle : styles.triangleNameFalse,
-                    position ? [
-                            nameShow ? styles.triangleRight : styles.triangleNameFalse, {
-                                borderColor: bubbleColor.right,
-                            backgroundColor:bubbleColor.right
-                            }]
-                        : {
-                            left: 0,
-                            borderColor: bubbleColor.left,
-                            backgroundColor:bubbleColor.left
-                        }]}/>
-                <View
-                    style={[styles.textContainer, position ? {backgroundColor: bubbleColor.right} : {backgroundColor: bubbleColor.left}]}>
-                    <Text style={styles.textStyle}>{message}</Text>
-                </View>
 
-
+                {images&&<ImageBubble {...this.props}/>}
+                {message&&<TextBubble {...this.props}/>}
             </View>
         )
     }
-
 
 }
 
@@ -91,6 +83,9 @@ const styles = StyleSheet.create({
         height: 10,
         width: 10,
         transform: [{rotateZ: '45deg'}]
+    },
+    imagesContainer:{
+        flexDirection:'row',
     }
 
 })

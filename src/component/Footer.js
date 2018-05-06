@@ -12,33 +12,85 @@ import Colors from '../utils/Colors';
 import InputTool from './InputTool';
 import Send from './Send';
 import MessageTools from './MessageTools';
+import * as imgs from "../images";
+import PictureGallery from './picture/PictureGallery'
+import VoiceOne from './voice/VoiceOne'
+
 
 export default class Footer extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             message: '',
         }
+        this.messageTools = [{
+            normalIcon: imgs.voice,
+            selectedIcon: imgs.voiceSelect,
+            messageToolView: <VoiceOne
+                onVoicePressIn={() => {
+                    console.log('voiceIn')
+                }}
+                onVoicePressOut={() => {
+                    console.log("voiceOut")
+                }}
+            />
+        },
+
+            {
+                normalIcon: imgs.picture,
+                selectedIcon: imgs.pictureSelect,
+                messageToolView: <PictureGallery
+                    sendImageMessagesFn={props.sendImageMessagesFn}
+                    checkImageFn={props.checkImageFn}
+                />
+            },
+            {
+                normalIcon: imgs.camera,
+                selectedIcon: imgs.cameraSelect,
+
+            },
+            {
+                normalIcon: imgs.emoticon,
+                selectedIcon: imgs.emoticonSelect,
+                messageToolView: <VoiceOne
+                    onVoicePressIn={() => {
+                        console.log('voiceIn')
+                    }}
+                    onVoicePressOut={() => {
+                        console.log("voiceOut")
+                    }}
+                />
+            },
+            {
+                normalIcon: imgs.add,
+                selectedIcon: imgs.addSelect,
+                messageToolView: <VoiceOne
+                    onVoicePressIn={() => {
+                        console.log('voiceIn')
+                    }}
+                    onVoicePressOut={() => {
+                        console.log("voiceOut")
+                    }}
+                />
+            }
+        ]
     }
 
 
     _onChangedText = (text) => {
-        console.log(text.length)
-        const {message} = this.state
-
-            this.setState({
-                message: text
-            })
+        this.setState({
+            message: text
+        })
 
     }
 
-    _onFocus=()=>{
+    _onFocus = () => {
         this.refs.MessageTools.resetButton()
     }
 
     render() {
-        const {message,} = this.state
-        const {sendPress, textInputStyle, textInputProps, animationType,keyboardHide} = this.props
+        const {message} = this.state
+        const {sendPress, textInputStyle, textInputProps, animationType, keyboardHide} = this.props
         return (
             <KeyboardAvoidingView
                 behavior={Platform.select({
@@ -74,7 +126,12 @@ export default class Footer extends Component {
                             sendStatus={!_.isEmpty(message)}
                         />
                     </View>
-                    <MessageTools ref={'MessageTools'} keyboardHide={keyboardHide} animationType={animationType}/>
+                    <MessageTools
+                        ref={'MessageTools'}
+                        keyboardHide={keyboardHide}
+                        animationType={animationType}
+                        messageTools={this.messageTools}
+                    />
                 </View>
             </KeyboardAvoidingView>
         )

@@ -1,45 +1,39 @@
-import React,{Component} from "react";
+import React, {Component} from "react";
 import {
     View,
     Image,
     TouchableOpacity,
     StyleSheet
 } from 'react-native';
-import * as imgs from '../images';
 import ToolsButton from './ToolsButton';
 import AnimationContainer from './AnimationContainer';
-import VoiceOne from './voice/VoiceOne'
-export default class MessageTools extends Component{
+import _ from 'lodash';
+export default class MessageTools extends Component {
 
-    constructor(){
+    constructor() {
         super()
-        this.state={
-            onPressType:0,
-            messageToolView:null
+        this.state = {
+            onPressType: 0,
+            messageToolView: null
         }
     }
 
-    buttonPress=(type)=>{
-        const {keyboardHide}=this.props
-        const {onPressType}=this.state
-        let messageToolView=null
-        if(keyboardHide){
+    buttonPress = (type) => {
+        const {keyboardHide, messageTools} = this.props
+        const {onPressType} = this.state
+        let messageToolView = messageTools[type-1].messageToolView
+        if (keyboardHide) {
             keyboardHide()
         }
-        switch (type){
-            case 1:
-                messageToolView=<VoiceOne/>
-                break
-        }
 
-        if(type==onPressType){
+        if (type == onPressType) {
             this.setState({
-                onPressType:onPressType==0?type:0,
-                messageToolView:onPressType==0?messageToolView:null
+                onPressType: onPressType == 0 ? type : 0,
+                messageToolView: onPressType == 0 ? messageToolView : null
             })
-        }else {
+        } else {
             this.setState({
-                onPressType:type,
+                onPressType: type,
                 messageToolView
             })
         }
@@ -47,41 +41,44 @@ export default class MessageTools extends Component{
 
     }
 
-    resetButton=()=>{
+    resetButton = () => {
         this.setState({
-            onPressType:0,
-            messageToolView:null
+            onPressType: 0,
+            messageToolView: null
         })
     }
-    render(){
-         const {onPressType,messageToolView}=this.state
-        const {animationType}=this.props
-        return(
+
+    render() {
+        const {onPressType, messageToolView} = this.state
+        const {animationType, messageTools} = this.props
+        return (
             <View>
-            <View style={styles.container}>
-            <ToolsButton normalIcon={imgs.voice} selectedIcon={imgs.voiceSelect} selected={onPressType==1} onPress={()=>this.buttonPress(1)}/>
-            <ToolsButton normalIcon={imgs.picture} selectedIcon={imgs.pictureSelect} selected={onPressType==2} onPress={()=>this.buttonPress(2)}/>
-            <ToolsButton normalIcon={imgs.camera} selectedIcon={imgs.cameraSelect} selected={onPressType==3} onPress={()=>this.buttonPress(3)}/>
-            <ToolsButton normalIcon={imgs.emoticon} selectedIcon={imgs.emoticonSelect}  selected={onPressType==4} onPress={()=>this.buttonPress(4)}/>
-            <ToolsButton normalIcon={imgs.add} selectedIcon={imgs.addSelect} selected={onPressType==5} onPress={()=>this.buttonPress(5)}/>
-        </View>
+                <View style={styles.container}>
+                    {_.map(messageTools, (value, index) => <ToolsButton key={index
+                    } {...value}
+                                                                        selected={onPressType == index + 1}
+                                                                        onPress={() => this.buttonPress(index + 1)}
+                    />)
+                    }
+
+                </View>
                 <AnimationContainer animationType={animationType}>
                     {messageToolView}
                 </AnimationContainer>
             </View>
-                )
+        )
     }
 
 }
 
-const styles=StyleSheet.create({
-    container:{
-        flexDirection:'row',
-        paddingTop:3,
-        paddingBottom:5
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: 'row',
+        paddingTop: 3,
+        paddingBottom: 5
     },
-    toolBtn:{
-        flex:1
+    toolBtn: {
+        flex: 1
     }
 
 })
