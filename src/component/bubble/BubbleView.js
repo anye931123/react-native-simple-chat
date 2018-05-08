@@ -42,13 +42,13 @@ _showDialogPopFn=(message)=>{
 }
 
     render(){
-        const {position, bubbleColor, messageData, nameShow,} = this.props
-        const {message,images}=messageData
+        const {position,messageData, nameShow,textBubble,imageBubble,voiceBubble} = this.props
+        const {message,images,voice}=messageData
         return(
             <View  {...this._panResponder.panHandlers} style={[styles.container, position ? {justifyContent: 'flex-end',paddingRight:nameShow?6:4} : {justifyContent: 'flex-start',paddingLeft:nameShow?6:4}]}>
 
-                {images&&<ImageBubble {...this.props} showDialogFn={this._showDialogPopFn}/>}
-                {message&&<TextBubble {...this.props} showDialogFn={this._showDialogPopFn}/>}
+                {images&&(imageBubble?imageBubble:<ImageBubble {...this.props} showDialogFn={this._showDialogPopFn}/>)}
+                {message&&(textBubble?textBubble:<TextBubble {...this.props} showDialogFn={this._showDialogPopFn}/>)}
             </View>
         )
     }

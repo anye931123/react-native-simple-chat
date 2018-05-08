@@ -7,9 +7,7 @@ import {
     TouchableOpacity,
     ScrollView
 } from 'react-native';
-import Colors from '../../utils/Colors'
 import ImageView from "../../widget/ImageView";
-import {windowWidth} from '../../utils/utils'
 import _ from 'lodash'
 const MAXWIDTH=250
 export default class ImageBubble extends Component{
@@ -76,7 +74,6 @@ export default class ImageBubble extends Component{
 
 const styles=StyleSheet.create({
     imagesContainer:{
-
         flexDirection:'row',
         borderRadius:7,
         overflow:'hidden'
