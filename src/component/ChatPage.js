@@ -15,6 +15,8 @@ import * as imgs from '../images';
 import Colors from "../utils/Colors";
 import CheckImagesMode from './CheckImagesMode'
 import FlatListView from '../widget/FlatListView'
+import DialogPop from '../widget/DialogPop'
+import {windowWidth}from '../utils/utils'
 const listData=[{img:imgs.avatarImg,
     message:"额外佛微微服" ,
     userId:1
@@ -57,6 +59,39 @@ const listData=[{img:imgs.avatarImg,
     message:"额外佛微微服务收费为服务费卫生服务" ,
     userId:1
 }]
+
+
+let DIALOG_POP_CONFIG=[{
+    icon:imgs.copy,
+    text:"复制",
+    onPress:()=>{}
+},
+    {
+        icon:imgs.transpond,
+        text:"转发",
+        onPress:()=>{}
+    },
+    {
+        icon:imgs.collect,
+        text:"收藏",
+        onPress:()=>{}
+    },
+    {
+        icon:imgs.recall,
+        text:"撤回",
+        onPress:()=>{}
+    },
+    {
+        icon:imgs.deleteIcon,
+        text:"删除",
+        onPress:()=>{}
+    },
+    {
+        icon:imgs.multipleChoice,
+        text:"多选",
+        onPress:()=>{}
+    }
+]
 let messagesAddress=new Set()
 export default class ChatPage extends Component{
 
@@ -68,6 +103,9 @@ export default class ChatPage extends Component{
             })
         this.state={
             keyboardHeight:0,
+            visible:false,
+            dialogY:0,
+            dialogX:0,
         }
     }
     _keyboardDidShow=(e)=>{
@@ -83,7 +121,7 @@ export default class ChatPage extends Component{
 
     _keyboardWillHide=(e)=>{
         this.setState({
-            keyboardHeight:0
+            keyboardHeight:0,
         })
 
     }
@@ -111,6 +149,24 @@ export default class ChatPage extends Component{
         this.keyboardDidShowListener.remove();
         this.keyboardDidHideListener.remove();
     }
+    showDialogPop=(message,x,y)=>{
+
+        console.log("message",message)
+        if(message){
+            this.setState({
+                dialogY:y,
+                dialogX:x,
+                visible:true
+
+            })
+        }else {
+            this.setState({
+                visible:false
+            })
+        }
+
+    }
+
     renderRow =(data,sectionId,rowId)=>{
         const { messages,
             myNameShow,  //是否显示自己的名字
@@ -140,9 +196,12 @@ export default class ChatPage extends Component{
             userNameShow={userNameShow}
             timeStyle={timeStyle?timeStyle:{}}
             timeTextStyle={timeTextStyle?timeTextStyle:{}}
+            rowId={rowId+"Bubble"}
             checkImageFn={this._checkImageFn}
+            showDialogPopFn={this.showDialogPop}
         />
     }
+
 
     _checkImageFn=(images,index)=>{
 
@@ -172,7 +231,12 @@ export default class ChatPage extends Component{
             animationType,
             sendImageMessagesFn
         }=this.props
-        const {keyboardHeight}=this.state
+        const {keyboardHeight,
+            dialogX,
+            dialogY,
+            visible
+        }=this.state
+        console.log('visible',visible)
         let dataSource = this.ds.cloneWithRows(messages)
         return(
             <View style={styles.container}>
@@ -201,9 +265,19 @@ export default class ChatPage extends Component{
 
                 />
                 </Animated.View>
+                <DialogPop visible={visible}
+                           popStyle={{top:dialogY}}
+                           triangleStyle ={{left:dialogX}}
+                           showDialogPopFn={this.showDialogPop}
+                           DialogPopConfig={DIALOG_POP_CONFIG}
+
+                />
+
                 <CheckImagesMode ref={'CheckImagesMode'}/>
             </View>
         )
     }
 
 }
+
+

@@ -25,7 +25,7 @@ export default class PictureToolBar extends Component {
         let sendBtnState=selectImages.size>0
         let editBtnState=selectImages.size==1
         return (
-            <View style={[styles.container,toolBarShow&&{borderTopColor:Colors.transparent,backgroundColor:'rgba(0, 0, 0, 0.8)'}]}>
+            <View style={[styles.container,toolBarShow&&{borderTopColor:Colors.transparent,backgroundColor:Colors.imagesModeBg}]}>
                 <View style={styles.radioContainer}>
                     {gotoAlbum &&
 

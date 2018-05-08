@@ -44,11 +44,7 @@ export default class AnimationContainer extends Component{
     }
 
     containerChange=(animationType)=>{
-        // if(!animationType){
-        //     UIManager.setLayoutAnimationEnabledExperimental &&
-        //     UIManager.setLayoutAnimationEnabledExperimental(false);
-        //     return
-        // }
+
         let config=layoutAnimationConfigs[animationType];
         LayoutAnimation.configureNext(config);
     }

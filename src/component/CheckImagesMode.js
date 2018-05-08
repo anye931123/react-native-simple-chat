@@ -10,6 +10,7 @@ import Swiper from 'react-native-swiper';
 import _ from 'lodash'
 
 import PictureToolBar from './picture/PictureToolBar'
+import Colors from "../utils/Colors";
 export default class CheckImagesMode extends Component {
 
     constructor() {
@@ -63,7 +64,7 @@ export default class CheckImagesMode extends Component {
                             </View>
                         )}
                     </Swiper>
-                    {<PictureToolBar
+                    {toolBarShow&&<PictureToolBar
                         selectImages={new Set()}
                         toolBarShow={true}
                     />}
@@ -76,7 +77,7 @@ export default class CheckImagesMode extends Component {
 }
 const styles=StyleSheet.create({
     modalBackgroundStyle: {
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        backgroundColor: Colors.imagesModeBg,
         flex: 1,
         justifyContent: "center",
         alignItems: "center",

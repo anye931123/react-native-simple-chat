@@ -4,60 +4,58 @@ import {
     View,
     TouchableOpacity,
     Image,
-    StyleSheet
+    StyleSheet,
+    Text,
+
 } from 'react-native';
 import {styles} from '../../styles/messageButtomTool'
 import * as imgs from '../../images'
 import Colors from '../../utils/Colors';
-
+import {stylesVoice} from './styles'
+import VoiceMode from './VoiceMode'
 export default class VoiceOne extends Component {
 
     constructor() {
         super()
+        this.state={
+            visible:false
+        }
     }
 
 
+    _onVoicePressOut=()=>{
+        const {onVoicePressOut}=this.props
+    if(onVoicePressOut){
+        onVoicePressOut()
+    }
+
+    this.setState({
+        visible:false
+    })
+}
+  _showMode=()=>{
+        this.setState({
+            visible:true
+        })
+  }
     render() {
         const {onVoicePressIn, onVoicePressOut} = this.props
+        const {visible}=this.state
         return (
             <View style={styles.container}>
-
+                <Text style={stylesVoice.title}>按住说话</Text>
                 <TouchableOpacity
                     style={stylesVoice.button}
-                    onPressIn={() => {
-                        if (onVoicePressIn) {
-                            onVoicePressIn()
-                        }
-                    }}
-                    onPressOut={()=>{
-                        if(onVoicePressOut){
-                            onVoicePressOut()
-                        }
-                    }}
+                    onPress={this._showMode}
+                    onLongPress={this._showMode}
+                    delayLongPress={0}
                 >
-
                     <Image source={imgs.voiceButton} style={stylesVoice.image}/>
                 </TouchableOpacity>
-
+                <VoiceMode visible={visible}  onVoicePressIn={onVoicePressIn}  onVoicePressOut={this._onVoicePressOut}/>
             </View>
         )
     }
 }
 
 
-const stylesVoice = StyleSheet.create({
-
-    button: {
-        padding: 20,
-        borderRadius: 50,
-        backgroundColor: Colors.blue
-    },
-    image: {
-
-        width: 40,
-        height: 40,
-        resizeMode: 'contain'
-
-    }
-
-})

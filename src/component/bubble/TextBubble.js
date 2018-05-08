@@ -3,7 +3,8 @@ import {
     View,
     StyleSheet,
     Text,
-    Dimensions
+    Dimensions,
+    TouchableOpacity
 } from 'react-native';
 import Colors from '../../utils/Colors'
 import ImageView from "../../widget/ImageView";
@@ -16,10 +17,12 @@ export default class TextBubble extends Component {
 
     render() {
 
-        const {position, bubbleColor, messageData, nameShow} = this.props
+        const {position, bubbleColor, messageData, nameShow,showDialogFn} = this.props
         const {message}=messageData
 
         return (
+            <TouchableOpacity  onLongPress={()=>showDialogFn(messageData)}
+                              >
             <View style={[styles.container, position ? {justifyContent: 'flex-end',paddingRight:nameShow?6:4} : {justifyContent: 'flex-start',paddingLeft:nameShow?6:4}]}>
                 <View style={[
                     nameShow ? styles.triangle : styles.triangleNameFalse,
@@ -40,6 +43,7 @@ export default class TextBubble extends Component {
 
 
             </View>
+            </TouchableOpacity>
         )
     }
 
