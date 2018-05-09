@@ -17,15 +17,15 @@ export default class DialogPopButton extends Component{
 
 
     render(){
-        const {icon,text,onPress}=this.props
+        const {icon,text,onPress,style={},PopDialogButtonProps}=this.props
+        const {iconStyle,textStyle}=style
         return(<TouchableOpacity
         onPress={onPress}
         style={styles.container}
+        {...PopDialogButtonProps}
         >
-            <View style={styles.btnContainer}>
-                <ImageView source={icon} style={styles.icon}/>
-                <Text style={styles.text}>{text}</Text>
-            </View>
+                <ImageView source={icon} style={[styles.icon,iconStyle]}/>
+                <Text style={[styles.text,textStyle]}>{text}</Text>
         </TouchableOpacity>)
     }
 }
@@ -38,10 +38,7 @@ const styles=StyleSheet.create({
         alignItems:'center'
     },
 
-    btnContainer:{
-        justifyContent:'center',
-        alignItems:"center"
-    },
+
     icon:{
         width:14,
         height:14,

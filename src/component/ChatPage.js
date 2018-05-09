@@ -1,7 +1,7 @@
-import React,{Component}from 'react';
+import React, {Component} from 'react';
 import {
     View,
-  ListView,
+    ListView,
     Keyboard,
     Animated,
     Platform
@@ -12,116 +12,134 @@ import Footer from './Footer';
 import Message from './Message';
 
 import * as imgs from '../images';
-import Colors from "../utils/Colors";
 import CheckImagesMode from './CheckImagesMode'
-import FlatListView from '../widget/FlatListView'
-import DialogPop from '../widget/DialogPop'
-import {windowWidth}from '../utils/utils'
-const listData=[{img:imgs.avatarImg,
-    message:"额外佛微微服" ,
-    userId:1
-},{img:imgs.avatarImg,
-    message:"额外佛微微服务收费为服务费卫生服务" ,
-    userId:1
-},{
-    message:"额外佛微微服务收费为服务费卫生服放水电费水电费的说法是的范德萨发水电费水电费水电费水电费水电费水电费是的发送到" ,
-    userId:2,
-    userName:"小明"
-},{img:imgs.avatarImg,
-    message:"额外佛微为服务费卫生服务" ,
-    userId:1
-},{img:imgs.avatarImg,
-    message:"额外佛微微服务收费为服务费卫生服务" ,
-    userId:1
-},{img:imgs.avatarImg,
-    message:"额外佛微微服卫生服务" ,
-    userId:1
-},{img:imgs.avatarImg,
-    message:"额" ,
-    userId:1
-},{img:imgs.avatarImg,
-    message:"额外佛微微服务收费为服务费卫生服放水电费水电费的说法是的范德萨发水电费水电费水电费水电费水电费水电费是的发送到" ,
-    userId:1
-},{img:imgs.avatarImg,
-    message:"额外" ,
-    userId:1
-},{
-    message:"额外佛微微服务收费为服务费卫生服放水电费水电费的说法是的范德萨发水电费水电费水电费水电费水电费水电费是的发送到" ,
-    userId:2,
-    userName:"小明"
-},{img:imgs.avatarImg,
-    message:"额外佛微微服务收" ,
-    userId:1
-},{img:imgs.avatarImg,
-    message:"额外佛微微服" ,
-    userId:1
-},{img:imgs.avatarImg,
-    message:"额外佛微微服务收费为服务费卫生服务" ,
-    userId:1
+import PopDialog from '../widget/PopDialog'
+import FlatListView from '../widget/FlatListView';
+import _ from 'lodash'
+import {QQStyle} from '../config/styleIndex'
+const listData = [{
+    img: imgs.avatarImg,
+    message: "额外佛微微服",
+    userId: 1
+}, {
+    img: imgs.avatarImg,
+    message: "额外佛微微服务收费为服务费卫生服务",
+    userId: 1
+}, {
+    message: "额外佛微微服务收费为服务费卫生服放水电费水电费的说法是的范德萨发水电费水电费水电费水电费水电费水电费是的发送到",
+    userId: 2,
+    userName: "小明"
+}, {
+    img: imgs.avatarImg,
+    message: "额外佛微为服务费卫生服务",
+    userId: 1
+}, {
+    img: imgs.avatarImg,
+    message: "额外佛微微服务收费为服务费卫生服务",
+    userId: 1
+}, {
+    img: imgs.avatarImg,
+    message: "额外佛微微服卫生服务",
+    userId: 1
+}, {
+    img: imgs.avatarImg,
+    message: "额",
+    userId: 1
+}, {
+    img: imgs.avatarImg,
+    message: "额外佛微微服务收费为服务费卫生服放水电费水电费的说法是的范德萨发水电费水电费水电费水电费水电费水电费是的发送到",
+    userId: 1
+}, {
+    img: imgs.avatarImg,
+    message: "额外",
+    userId: 1
+}, {
+    message: "额外佛微微服务收费为服务费卫生服放水电费水电费的说法是的范德萨发水电费水电费水电费水电费水电费水电费是的发送到",
+    userId: 2,
+    userName: "小明"
+}, {
+    img: imgs.avatarImg,
+    message: "额外佛微微服务收",
+    userId: 1
+}, {
+    img: imgs.avatarImg,
+    message: "额外佛微微服",
+    userId: 1
+}, {
+    img: imgs.avatarImg,
+    message: "额外佛微微服务收费为服务费卫生服务",
+    userId: 1
 }]
 
 
-let DIALOG_POP_CONFIG=[{
-    icon:imgs.copy,
-    text:"复制",
-    onPress:()=>{}
+let DIALOG_POP_CONFIG = [{
+    icon: imgs.copy,
+    text: "复制",
+    onPress: () => {
+    }
 },
     {
-        icon:imgs.transpond,
-        text:"转发",
-        onPress:()=>{}
+        icon: imgs.transpond,
+        text: "转发",
+        onPress: () => {
+        }
     },
     {
-        icon:imgs.collect,
-        text:"收藏",
-        onPress:()=>{}
+        icon: imgs.collect,
+        text: "收藏",
+        onPress: () => {
+        }
     },
     {
-        icon:imgs.recall,
-        text:"撤回",
-        onPress:()=>{}
+        icon: imgs.recall,
+        text: "撤回",
+        onPress: () => {
+        }
     },
     {
-        icon:imgs.deleteIcon,
-        text:"删除",
-        onPress:()=>{}
+        icon: imgs.deleteIcon,
+        text: "删除",
+        onPress: () => {
+        }
     },
     {
-        icon:imgs.multipleChoice,
-        text:"多选",
-        onPress:()=>{}
+        icon: imgs.multipleChoice,
+        text: "多选",
+        onPress: () => {
+        }
     }
 ]
-let messagesAddress=new Set()
-export default class ChatPage extends Component{
+let messagesAddress = new Set()
+export default class ChatPage extends Component {
 
-    constructor(){
+    constructor() {
         super()
-        this.ds=new ListView.DataSource(
+        this.ds = new ListView.DataSource(
             {
                 rowHasChanged: (r1, r2) => r1 !== r2
             })
-        this.state={
-            keyboardHeight:0,
-            visible:false,
-            dialogY:0,
-            dialogX:0,
+        this.state = {
+            keyboardHeight: 0,
+            visible: false,
+            dialogY: 0,
+            dialogX: 0,
         }
     }
-    _keyboardDidShow=(e)=>{
+
+    _keyboardDidShow = (e) => {
         this.setState({
-            keyboardHeight:e.endCoordinates.height,
+            keyboardHeight: e.endCoordinates.height,
         })
-        this.refs.messageList.scrollTo({y:0,x:0,animated:false})
+        // this.refs.messageList.scrollTo({y: 0, x: 0, animated: false})
     }
 
-    _keyboardHide=()=>{
+    _keyboardHide = () => {
         Keyboard.dismiss()
     }
 
-    _keyboardWillHide=(e)=>{
+    _keyboardWillHide = (e) => {
         this.setState({
-            keyboardHeight:0,
+            keyboardHeight: 0,
         })
 
     }
@@ -133,15 +151,15 @@ export default class ChatPage extends Component{
 
     componentWillReceiveProps(nextProps) {
 
-        const {messages}=nextProps
+        const {messages} = nextProps
         messagesAddress.clear()
-        let messagesLength=messages.length
-        while ((messagesLength=messagesLength-7)>0){
+        let messagesLength = messages.length
+        while ((messagesLength = messagesLength - 7) > 0) {
             messagesAddress.add(messagesLength)
         }
 
         this.setState({
-            data:nextProps.data
+            data: nextProps.data
         })
     }
 
@@ -149,127 +167,133 @@ export default class ChatPage extends Component{
         this.keyboardDidShowListener.remove();
         this.keyboardDidHideListener.remove();
     }
-    showDialogPop=(message,x,y)=>{
 
-        console.log("message",message)
-        if(message){
+    showPopDialog = (message, x, y) => {
+        if (message) {
             this.setState({
-                dialogY:y,
-                dialogX:x,
-                visible:true
+                dialogY: y,
+                dialogX: x,
+                visible: true
 
             })
-        }else {
+        } else {
             this.setState({
-                visible:false
+                visible: false
             })
         }
 
     }
 
-    renderRow =(data,sectionId,rowId)=>{
-        const { messages,
+    renderRow = ({item,index}) => {
+        const {
+            messages,
             myNameShow,  //是否显示自己的名字
             userNameShow,  //是否显示别人的名字
             myId,          //我的id 用户id
-            avatarStyle,    //头像样式  {left:{},right:{}} 左右头像样式
-            bubbleColor ,      //气泡颜色{right:Colors.red,left:Colors.blue}
             timeStyle,         //时间标签容器样式
             timeTextStyle      //时间标签字体样式
-        }=this.props
-        let messagesLength=messages.length
-        let rowAddress=1+parseInt(rowId)
-        let timeShow=false
-        if(messagesLength==rowAddress){
-            timeShow=true
-        }else {
-            timeShow=messagesAddress.has(rowAddress)
+        } = this.props
+        let messagesLength = messages.length
+        let rowAddress = 1 + parseInt(index)
+        let timeShow = false
+        if (messagesLength == rowAddress) {
+            timeShow = true
+        } else {
+            timeShow = messagesAddress.has(rowAddress)
 
         }
-        return  <Message
-            avatarStyle={avatarStyle}
-            data={data}
-            bubbleColor={bubbleColor}
+        return <Message
+            {...QQStyle}
+            data={item}
             myId={myId}
             timeShow={timeShow}
             myNameShow={myNameShow}
             userNameShow={userNameShow}
-            timeStyle={timeStyle?timeStyle:{}}
-            timeTextStyle={timeTextStyle?timeTextStyle:{}}
-            rowId={rowId+"Bubble"}
             checkImageFn={this._checkImageFn}
-            showDialogPopFn={this.showDialogPop}
+            showDialogPopFn={this.showPopDialog}
+
         />
     }
 
 
-    _checkImageFn=(images,index)=>{
+    _checkImageFn = (showToolBar,images, index) => {
 
-        this.refs.CheckImagesMode.setModalVisible(true,images,index)
+        this.refs.CheckImagesMode.setModalVisible(true, images, index,showToolBar)
     }
 
-    sendPress=(message)=>{
-        const {sendFn}=this.props
-        if(sendFn){
+    sendPress = (message) => {
+        const {sendFn} = this.props
+        if (sendFn) {
             sendFn(message)
         }
-        this.refs.messageList.scrollTo({y:0,x:0,animated:true})
+        // this.refs.messageList.scrollTo({y: 0, x: 0, animated: true})
     }
-    sendImageMessagesFn=(images)=>{
-        const {sendImageMessagesFn}=this.props
-        if(sendImageMessagesFn){
+    sendImageMessagesFn = (images) => {
+        const {sendImageMessagesFn} = this.props
+        if (sendImageMessagesFn) {
             sendImageMessagesFn(images)
         }
 
-        this.refs.messageList.scrollTo({y:0,x:0,animated:true})
+        // this.refs.messageList.scrollTo({y: 0, x: 0, animated: true})
     }
-    render(){
+
+    render() {
         const {
             messages,
             textInputStyle,
             textInputProps,
-            animationType,
             sendImageMessagesFn
-        }=this.props
-        const {keyboardHeight,
+        } = this.props
+
+        const {
+            keyboardHeight,
             dialogX,
             dialogY,
             visible
-        }=this.state
-        console.log('visible',visible)
+        } = this.state
+        console.log('visible', visible)
         let dataSource = this.ds.cloneWithRows(messages)
-        return(
-            <View style={styles.container}>
+        return (
+            <View style={QQStyle.chatStyle}>
 
-                <View style={{flex:1,transform:[{rotateX: '180deg'}]}}>
+                <View style={{flex: 1, transform: [{rotateX: '180deg'}]}}>
 
-                   <ListView
-                       ref={'messageList'}
-                       dataSource={dataSource}
-                       renderRow={this.renderRow}
-                       enableEmptySections={true}
-                   />
+                    <FlatListView
+                        horizontal={false}
+                        data={_.clone(messages)}
+                        renderItem={this.renderRow}
+                        numColumns={1}
+
+                    />
+                    {/*<ListView*/}
+                        {/*ref={'messageList'}*/}
+                        {/*dataSource={dataSource}*/}
+                        {/*renderRow={this.renderRow}*/}
+                        {/*enableEmptySections={true}*/}
+                    {/*/>*/}
 
                 </View>
-                <Animated.View style={{marginBottom: Platform.select({
-                        android:0,
-                        ios:keyboardHeight
-                    })}}>
-                <Footer textInputStyle={textInputStyle}
-                        textInputProps={textInputProps}
-                        animationType={animationType }
-                        sendPress={this.sendPress}
-                        keyboardHide={this._keyboardHide}
-                        sendImageMessagesFn={sendImageMessagesFn}
-                        checkImageFn={this._checkImageFn}
+                <Animated.View style={{
+                    marginBottom: Platform.select({
+                        android: 0,
+                        ios: keyboardHeight
+                    })
+                }}>
+                    <Footer textInputStyle={textInputStyle}
+                            textInputProps={textInputProps}
+                            sendPress={this.sendPress}
+                            keyboardHide={this._keyboardHide}
+                            sendImageMessagesFn={sendImageMessagesFn}
+                            checkImageFn={this._checkImageFn}
+                            {...QQStyle}
 
-                />
+                    />
                 </Animated.View>
-                <DialogPop visible={visible}
-                           popStyle={{top:dialogY}}
-                           triangleStyle ={{left:dialogX}}
-                           showDialogPopFn={this.showDialogPop}
-                           DialogPopConfig={DIALOG_POP_CONFIG}
+                <PopDialog visible={visible}
+                           popStyle={{top: dialogY}}
+                           triangleStyle={{left: dialogX}}
+                           showDialogPopFn={this.showPopDialog}
+                           PopDialogConfig={DIALOG_POP_CONFIG}
 
                 />
 

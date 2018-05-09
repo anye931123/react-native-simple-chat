@@ -6,9 +6,7 @@ import {
     Dimensions,
     TouchableOpacity
 } from 'react-native';
-import Colors from '../../utils/Colors'
-import ImageView from "../../widget/ImageView";
-import _ from 'lodash'
+
 import PureText from './textBubble/PureText'
 export default class TextBubble extends Component {
     constructor() {

@@ -5,37 +5,6 @@ import {
    UIManager
 } from 'react-native';
 
-const animations = {
-    layout: {
-        spring: {
-            duration: 750,
-            create: {
-                duration: 300,
-                type: LayoutAnimation.Types.easeInEaseOut,
-                property: LayoutAnimation.Properties.opacity,
-            },
-            update: {
-                type: LayoutAnimation.Types.spring,
-                springDamping: 0.6,
-            },
-        },
-        easeInEaseOut: {
-            duration: 300,
-            create: {
-                type: LayoutAnimation.Types.easeInEaseOut,
-                property: LayoutAnimation.Properties.scaleXY,
-            },
-            update: {
-                delay: 100,
-                type: LayoutAnimation.Types.easeInEaseOut,
-            },
-        },
-    },
-}
-const layoutAnimationConfigs = [
-    animations.layout.spring,
-    animations.layout.easeInEaseOut,
-];
 export default class AnimationContainer extends Component{
 
     componentWillMount() {
@@ -43,15 +12,20 @@ export default class AnimationContainer extends Component{
         UIManager.setLayoutAnimationEnabledExperimental(true);
     }
 
-    containerChange=(animationType)=>{
+    containerChange=()=>{
+        const {animation}=this.props
+        if(animation){
+            LayoutAnimation.configureNext(animation);
+        }else {
+            UIManager.setLayoutAnimationEnabledExperimental &&
+            UIManager.setLayoutAnimationEnabledExperimental(false);
+        }
 
-        let config=layoutAnimationConfigs[animationType];
-        LayoutAnimation.configureNext(config);
     }
 
     render(){
-        const {children, animationType}=this.props
-        this.containerChange(animationType)
+        const {children}=this.props
+        this.containerChange()
         return (
             <View>
                 {children}

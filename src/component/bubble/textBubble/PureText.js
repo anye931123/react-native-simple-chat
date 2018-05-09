@@ -21,14 +21,16 @@ export default class PureText extends Component {
 
 
     render() {
-        const {position, textBubbleStyle = {}, messageData, nameShow} = this.props
-        const {bubbleBgColor = {}, textStyle} = textBubbleStyle
-        const {rightColor = Colors.blue, leftColor = Colors.blue} = bubbleBgColor
+        const {position,bubbleStyle={} , messageData, nameShow} = this.props
+        const {textBubbleStyle={},textBubbleContainerBgStyle={}}=bubbleStyle
+        const {left, right} = textBubbleStyle
+        const {leftColor,rightColor}=textBubbleContainerBgStyle
         const {message} = messageData
-        return (<View style={[styles.container, position ? {
-            justifyContent: 'flex-end',
-            paddingRight: nameShow ? 6 : 4
-        } : {justifyContent: 'flex-start', paddingLeft: nameShow ? 6 : 4}]}>
+        return (<View style={[styles.container, {
+            justifyContent: position ? 'flex-end':'flex-start',
+            paddingRight: nameShow ? 6 : 4,
+            paddingLeft: nameShow ? 6 : 4
+        }]}>
             <View style={[
                 nameShow ? styles.triangle : styles.triangleNameFalse,
                 position ? [
@@ -41,7 +43,7 @@ export default class PureText extends Component {
                 }]]}/>
             <View
                 style={[styles.textContainer, {backgroundColor: position ? rightColor : leftColor}]}>
-                <Text style={[styles.textStyle, textStyle]}>{message}</Text>
+                <Text style={[styles.textStyle, position?right||left:left||right]}>{message}</Text>
             </View>
 
 

@@ -1,4 +1,4 @@
-export const avatarImg=require('./user.png')
+export const avatarDefault=require('./user.png')
 
 export  const camera=require('./camera.png')
 

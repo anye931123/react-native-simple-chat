@@ -49,6 +49,7 @@ _showDialogPopFn=(message)=>{
 
                 {images&&(imageBubble?imageBubble:<ImageBubble {...this.props} showDialogFn={this._showDialogPopFn}/>)}
                 {message&&(textBubble?textBubble:<TextBubble {...this.props} showDialogFn={this._showDialogPopFn}/>)}
+                {voice&&(voiceBubble?voiceBubble:null)}
             </View>
         )
     }

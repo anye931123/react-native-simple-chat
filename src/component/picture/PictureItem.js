@@ -37,8 +37,9 @@ export default class PictureItem extends Component {
 
     render() {
         const {radioSelected} = this.state
-        const {data,selectImageFun,selectImages,imagesTotal,checkImageFn,imageIndex} = this.props
-
+        const {data,selectImageFun,selectImages,imagesTotal,checkImageFn,imageIndex,galleryItemImageStyle={},selectCircleButtonStyle={},
+        } = this.props
+        const {}=selectCircleButtonStyle
         let numLabel=0
         if(radioSelected){
             for(let image of selectImages.values()){
@@ -51,15 +52,15 @@ export default class PictureItem extends Component {
         return (
             <View>
                 <TouchableOpacity
-                onPress={()=>checkImageFn(imagesTotal,imageIndex)}
+                onPress={()=>checkImageFn(true,imagesTotal,imageIndex)}
                 >
                 <ImageView
-                    style={styles.imageStyle}
+                    style={galleryItemImageStyle}
                     auto={true}
                     fixed={'height'}
                     source={data}
-                    height={156}
-                    width={80}
+                    height={galleryItemImageStyle.height}
+                    width={galleryItemImageStyle.width}
                 />
                 </TouchableOpacity>
                 <SelectCircleButton onPress={() => {
@@ -70,10 +71,9 @@ export default class PictureItem extends Component {
                         radioSelected: !radioSelected
                     })
                 }}
-                                    btnStyle={styles.radioBtn}
-                                    circleStyle={styles.radio}
+                                    {...selectCircleButtonStyle}
                                     isSelected={radioSelected}>
-                    <Text style={styles.selectText}>{numLabel}</Text>
+                    <Text style={selectCircleButtonStyle.textStyle}>{numLabel}</Text>
                 </SelectCircleButton>
 
             </View>
@@ -83,26 +83,8 @@ export default class PictureItem extends Component {
 
 
 const styles = StyleSheet.create({
-    imageStyle: {
-        resizeMode: 'cover'
-    },
 
-    radio: {
-        justifyContent: 'center',
-        width: 17,
-        height: 17,
-        borderRadius: 8.5
-    },
 
-    radioBtn:{
-        position:'absolute',
-        top:4,
-        right:4
 
-    },
-    selectText:{
-        fontSize:12,
-        color:Colors.white
-    }
 
 })

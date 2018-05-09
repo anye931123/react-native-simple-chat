@@ -50,19 +50,20 @@ export default class MessageTools extends Component {
 
     render() {
         const {onPressType, messageToolView} = this.state
-        const {animationType, messageTools} = this.props
+        const {animation, messageTools} = this.props
         return (
             <View>
                 <View style={styles.container}>
-                    {_.map(messageTools, (value, index) => <ToolsButton key={index
-                    } {...value}
-                                                                        selected={onPressType == index + 1}
-                                                                        onPress={() => this.buttonPress(index + 1)}
+                    {_.map(messageTools,
+                        (value, index) => <ToolsButton key={index}
+                                                       {...value}
+                                                       selected={onPressType == index + 1}
+                                                       onPress={() => this.buttonPress(index + 1)}
                     />)
                     }
 
                 </View>
-                <AnimationContainer animationType={animationType}>
+                <AnimationContainer animation={animation}>
                     {messageToolView}
                 </AnimationContainer>
             </View>

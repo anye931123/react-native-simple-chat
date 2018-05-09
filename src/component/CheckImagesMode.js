@@ -18,22 +18,23 @@ export default class CheckImagesMode extends Component {
         this.state = {
             modalVisible: false,
             images:[],
-            index:0
+            index:0,
+            toolBarShow:false
         }
     }
 
-    setModalVisible=(visible,images,index)=> {
+    setModalVisible=(visible,images,index,toolBarShow)=> {
 
         this.setState({
             modalVisible: visible,
             images:images?images:[],
-            index:index?index:0
+            index:index?index:0,
+            toolBarShow:toolBarShow
         });
     }
 
     render() {
-        const {images,index,modalVisible} = this.state
-        const {toolBarShow}=this.props
+        const {images,index,modalVisible,toolBarShow} = this.state
         return (
             <Modal
                 animationType={'none'}

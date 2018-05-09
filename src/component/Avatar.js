@@ -8,6 +8,13 @@ import {
     Text
 } from 'react-native';
 import Colors from '../utils/Colors'
+import ImageView from '../widget/ImageView'
+import {avatarDefault} from "../images"
+type avatarStyle={
+    imageAvatarStyle:Object,
+    textAvatarStyle:Object,
+    textAvatarContainerStyle:Object
+}
 
 export default class Avatar extends Component {
     constructor() {
@@ -23,40 +30,30 @@ export default class Avatar extends Component {
     }
 
     renderAvatar = () => {
-        const {avatar, avatarStyle, userName} = this.props
-        if (typeof avatar === 'string') {
-            return <Image
-                source={{uri: avatar}}
-                style={[styles.avatarStyle,avatarStyle,{backgroundColor:Colors.transparent}]}
-            />
-        } else if (typeof avatar === 'number') {
-            return <Image
+        const {avatar, imageAvatarStyle, textAvatarStyle,textAvatarContainerStyle, userName} = this.props
+        if (avatar === 'string'||typeof avatar === 'number') {
+            return <ImageView
                 source={avatar}
-                style={[styles.avatarStyle,avatarStyle,{backgroundColor:Colors.transparent}]}
+                style={[styles.avatarStyle,imageAvatarStyle]}
             />
-        } else if (userName !== '') {
+        }  else if (userName !== '') {
 
-            return (<View style={[styles.avatarStyle, avatarStyle]}>
-                <Text style={{fontSize: 20, color: Colors.white}}>
+            return (<View style={[styles.avatarStyle, textAvatarContainerStyle]}>
+                <Text style={[{fontSize: 20, color: Colors.white},textAvatarStyle]}>
                     {userName.substr(userName.length - 1, 1)}
                 </Text>
             </View>)
+        }else {
+            return <ImageView
+                source={avatarDefault}
+                style={[styles.avatarStyle,imageAvatarStyle]}
+            />
         }
-        return null;
     }
 
     render() {
-        const {userName, avatar, avatarStyle, avatarPress} = this.props
+        const {avatarPress} = this.props
 
-        if (!userName && !avatar) {
-            return (
-                <View
-                    style={[styles.avatarStyle, styles.avatarTransparent, avatarStyle]}
-                />
-            )
-        }
-
-        if (avatar||userName) {
             return (
                 <TouchableOpacity
                     disabled={!avatarPress}
@@ -69,8 +66,6 @@ export default class Avatar extends Component {
                     {this.renderAvatar()}
                 </TouchableOpacity>
             )
-        }
-
 
     }
 }
@@ -83,10 +78,7 @@ const styles = StyleSheet.create(
             width: 40,
             height: 40,
             borderRadius: 20,
-            overflow:'hidden'
-        },
-        avatarTransparent: {
-            backgroundColor: Colors.transparent,
+            overflow: 'hidden'
         },
     }
 )
