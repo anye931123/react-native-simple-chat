@@ -35,7 +35,7 @@ export default class ImageBubble extends Component {
 
     render() {
         const {scrollEnabled} = this.state
-        const {messageData, checkImageFn, rowId, showDialogFn, imageBubbleContainerStyle,imageBubbleStyle={}} = this.props
+        const {messageData, checkImageFn, showDialogFn, imageBubbleContainerStyle,imageBubbleStyle={}} = this.props
         const {images} = messageData
         return (
             <View style={[styles.imagesContainer,imageBubbleContainerStyle]}>
@@ -46,7 +46,7 @@ export default class ImageBubble extends Component {
                 >
                     {_.map(images, (image, index) =>
                         <TouchableOpacity
-                            key={rowId + index}
+                            key={index}
                             onPress={() => {
                                 if (checkImageFn)
                                     checkImageFn(false,images, index)
@@ -59,7 +59,7 @@ export default class ImageBubble extends Component {
                         >
                             <ImageView
                                 autoCallBack={this.autoCallBack}
-                                style={[{resizeMode:'cover',width:45},imageBubbleStyle]}
+                                style={imageBubbleStyle}
                                 height={imageBubbleStyle.height?imageBubbleStyle.height:90}
                                 width={imageBubbleStyle.width?imageBubbleStyle.width:45}
                                 auto={true}

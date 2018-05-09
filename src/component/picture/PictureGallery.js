@@ -76,6 +76,7 @@ export default class PictureGallery extends Component {
                 data={_.clone(data)}
                 renderItem={this.renderRow}
                 numColumns={1}
+                showsHorizontalScrollIndicator={false}
 
             />
             {showToolBar&&<PictureToolBar

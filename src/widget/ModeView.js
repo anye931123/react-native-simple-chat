@@ -28,6 +28,7 @@ export default class ModeView extends Component{
             animationType={'none'}
             transparent={true}
             visible={visible}
+            onRequestClose={()=>modePress()}
         >
             <TouchableWithoutFeedback onPress={modePress}>
                 <View style={style}>
