@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ChatPage from './src/component/ChatPage';
-
+import PictureGallery from "./src/component/picture/PictureGallery"
 export default class App extends Component {
 
     constructor(props) {
@@ -96,18 +96,13 @@ export default class App extends Component {
         render() {
         const {data} = this.state
         return <ChatPage
-            animationType={0}
             sendFn={this.sendMessage}
             sendImageMessagesFn={this.sendImageMessagesFn}
             messages={data}
             myNameShow={false}
             userNameShow={true}
             myId={"0000"}         //我的id 用户id
-            avatarStyle={{
-                left: {backgroundColor: 'red'},
-                right: {backgroundColor: 'blue'}
-            }}    //头像样式  {left:{},right:{}} 左右头像样式
-            bubbleColor={{left: "red", right: "blue"}}
+
         />
     }
 }

@@ -7,66 +7,66 @@ import {
     TouchableOpacity,
     ScrollView
 } from 'react-native';
-import Colors from '../../utils/Colors'
 import ImageView from "../../widget/ImageView";
-import {windowWidth} from '../../utils/utils'
 import _ from 'lodash'
-const MAXWIDTH=250
-export default class ImageBubble extends Component{
+import {MAXWIDTH} from '../../config'
 
-    constructor(){
+export default class ImageBubble extends Component {
+
+    constructor() {
         super()
-        this.state={
-            scrollEnabled:false
+        this.state = {
+            scrollEnabled: false
         }
 
-        this.width=0
+        this.width = 0
 
     }
 
-    autoCallBack=(width,height)=>{
-        const {scrollEnabled}=this.props
-        this.width+=width
-        if(this.width>MAXWIDTH&&!scrollEnabled){
+    autoCallBack = (width, height) => {
+        const {scrollEnabled} = this.props
+        this.width += width
+        if (this.width > MAXWIDTH && !scrollEnabled) {
             this.setState({
-                scrollEnabled:true
+                scrollEnabled: true
             })
         }
     }
-    render(){
-        const {scrollEnabled}=this.state
-        const {messageData,checkImageFn,rowId,showDialogFn}=this.props
-        const {images}=messageData
-        return(
-            <View  style={styles.imagesContainer}>
+
+    render() {
+        const {scrollEnabled} = this.state
+        const {messageData, checkImageFn, showDialogFn, imageBubbleContainerStyle,imageBubbleStyle={}} = this.props
+        const {images} = messageData
+        return (
+            <View style={[styles.imagesContainer,imageBubbleContainerStyle]}>
                 <ScrollView
                     scrollEnabled={scrollEnabled}
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
                 >
-                {_.map(images,(image,index)=>
-                    <TouchableOpacity
-                        key={rowId+index}
-                    onPress={()=>{
-                        if(checkImageFn)
-                            checkImageFn(images, index)
-                    }}
-                        onLongPress={()=>{
-                            if(showDialogFn){
-                                showDialogFn(messageData)
-                            }
-                        }}
-                    >
-                    <ImageView
-                        autoCallBack={this.autoCallBack}
-                    style={{resizeMode:'cover'}}
-                    auto={true}
-                    height={90}
-                    width={40}
-                    fixed={'height'}
-                    source={image}
-                />
-                    </TouchableOpacity>)}
+                    {_.map(images, (image, index) =>
+                        <TouchableOpacity
+                            key={index}
+                            onPress={() => {
+                                if (checkImageFn)
+                                    checkImageFn(false,images, index)
+                            }}
+                            onLongPress={() => {
+                                if (showDialogFn) {
+                                    showDialogFn(messageData)
+                                }
+                            }}
+                        >
+                            <ImageView
+                                autoCallBack={this.autoCallBack}
+                                style={imageBubbleStyle}
+                                height={imageBubbleStyle.height?imageBubbleStyle.height:90}
+                                width={imageBubbleStyle.width?imageBubbleStyle.width:45}
+                                auto={true}
+                                fixed={'height'}
+                                source={image}
+                            />
+                        </TouchableOpacity>)}
                 </ScrollView>
             </View>
         )
@@ -74,11 +74,10 @@ export default class ImageBubble extends Component{
 
 }
 
-const styles=StyleSheet.create({
-    imagesContainer:{
-
-        flexDirection:'row',
-        borderRadius:7,
-        overflow:'hidden'
+const styles = StyleSheet.create({
+    imagesContainer: {
+        flexDirection: 'row',
+        borderRadius: 7,
+        overflow: 'hidden'
     }
 })

@@ -1,0 +1,119 @@
+import {LayoutAnimation} from "react-native";
+import Colors from "../utils/Colors";
+import {styles} from '../styles/messageButtomTool'
+import {windowWidth} from '../utils/utils'
+
+const animations = {
+    layout: {
+        spring: {
+            duration: 750,
+            create: {
+                duration: 300,
+                type: LayoutAnimation.Types.easeInEaseOut,
+                property: LayoutAnimation.Properties.opacity,
+            },
+            update: {
+                type: LayoutAnimation.Types.spring,
+                springDamping: 0.6,
+            },
+        },
+        easeInEaseOut: {
+            duration: 300,
+            create: {
+                type: LayoutAnimation.Types.easeInEaseOut,
+                property: LayoutAnimation.Properties.scaleXY,
+            },
+            update: {
+                delay: 100,
+                type: LayoutAnimation.Types.easeInEaseOut,
+            },
+        },
+    },
+}
+const layoutAnimationConfigs = [
+    animations.layout.spring,
+    animations.layout.easeInEaseOut,
+];
+export const QQStyle = {
+    chatStyle:{flex:1, backgroundColor:Colors.bg},
+    animation: layoutAnimationConfigs[1],
+    leftAvatarStyle: {
+        imageAvatarStyle: {},
+        textAvatarStyle: {},
+        textAvatarContainerStyle: {
+            backgroundColor:Colors.blue
+        }
+
+    },
+    rightAvatarStyle: {
+        imageAvatarStyle: {},
+        textAvatarStyle: {},
+        textAvatarContainerStyle: {
+            backgroundColor:Colors.blue
+        }
+
+    },
+    userNameStyle: {},
+    leftUserNameStyle: {marginLeft: 10},
+    rightUserNameStyle: {marginRight: 10},
+    bubbleStyle: {
+        textBubbleStyle: {
+            left: {},
+            right: {}
+        },
+        textBubbleContainerBgStyle: {
+            leftColor: String,
+            rightColor: Colors.blue
+        },
+        imageBubbleContainerStyle: {},
+        imageBubbleStyle: {
+            resizeMode: 'cover',
+            height: 90,
+            width: 40
+        }
+
+    },
+    timeStyle: {
+        timeLabelContainerStyle: {},
+        timeTextStyle: {}
+    },
+    popDialogStyle:{
+        popDialogContainerStyle:{}
+
+    },
+    pictureGalleryStyle:{
+        galleryContainerStyle:[styles.container,{alignItems:'flex-start',width:windowWidth}],
+        galleryItemImageStyle:{resizeMode: 'cover',height:156, width:80,},
+        selectCircleButtonStyle:{
+            selectCircleContainerStyle:{
+                position:'absolute',
+                top:4,
+                right:4,
+            },
+            commonStyle:{
+
+                alignItems: 'center',
+                marginRight: 5,
+                marginLeft: 5,
+                borderWidth: 1,
+                justifyContent: 'center',
+                width: 17,
+                height: 17,
+                borderRadius: 8.5
+            },
+            selectedFalseStyle: {
+                borderColor: Colors.gray,
+            },
+            selectedTrueStyle:{
+                borderColor: Colors.blue,
+                backgroundColor: Colors.blue
+            },
+            textStyle:{fontSize:12,
+                color:Colors.white}
+        }
+
+    },
+    footer: {}
+}
+
+

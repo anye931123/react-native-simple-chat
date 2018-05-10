@@ -42,6 +42,8 @@ export default class Footer extends Component {
                 messageToolView: <PictureGallery
                     sendImageMessagesFn={props.sendImageMessagesFn}
                     checkImageFn={props.checkImageFn}
+                    showToolBar={true}
+                    {...props.pictureGalleryStyle}
                 />
             },
             {
@@ -90,7 +92,7 @@ export default class Footer extends Component {
 
     render() {
         const {message} = this.state
-        const {sendPress, textInputStyle, textInputProps, animationType, keyboardHide} = this.props
+        const {sendPress, textInputStyle, textInputProps, animation,showMessageTool} = this.props
         return (
             <KeyboardAvoidingView
                 behavior={Platform.select({
@@ -103,14 +105,12 @@ export default class Footer extends Component {
                     <View style={[styles.container]}
                     >
                         <InputTool
-
                             onTextChanged={this._onChangedText}
                             onInputSizeChanged={() => {
                             }}
                             multiline={true}
                             text={message}
                             textInputStyle={[textInputStyle, {maxHeight: 124}]}
-
                             textInputProps={_.assign({onFocus:this._onFocus},textInputProps)}
 
                         />
@@ -128,9 +128,9 @@ export default class Footer extends Component {
                     </View>
                     <MessageTools
                         ref={'MessageTools'}
-                        keyboardHide={keyboardHide}
-                        animationType={animationType}
+                        animation={animation}
                         messageTools={this.messageTools}
+                        showMessageTool={showMessageTool}
                     />
                 </View>
             </KeyboardAvoidingView>

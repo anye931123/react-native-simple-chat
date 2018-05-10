@@ -18,8 +18,21 @@ export default class Message extends Component {
 
 
     render() {
-        const {data, bubbleColor, myId, avatarStyle,userNameShow,myNameShow,timeStyle,timeTextStyle,timeShow,
-            checkImageFn,rowId,showDialogPopFn
+        const {data,
+            bubbleColor,
+            myId,
+            leftAvatarStyle,
+            rightAvatarStyle,
+            userNameShow,
+            myNameShow,
+            timeStyle,
+            timeShow,
+            checkImageFn,
+            showDialogPopFn,
+            userNameStyle,
+            rightUserNameStyle,
+            leftUserNameStyle,
+            bubbleStyle
         } = this.props
 
         const {
@@ -41,21 +54,23 @@ export default class Message extends Component {
 
         return (
             <View style={{ marginTop: 10,transform: [{rotateX: '180deg'}]}}>
-                {timeShow&&<TimeLabel timeStyle={timeStyle}  timeTextStyle={timeTextStyle} time={time} />}
+
+                {timeShow&&<TimeLabel {...timeStyle} time={time} />}
             <View style={[styles.container, position && {justifyContent: 'flex-end'}]}>
-            {!position && <Avatar avatarStyle={avatarStyle.left} avatar={avatarImg} userName={userName}/>}
+            {!position && <Avatar {...leftAvatarStyle} avatar={avatarImg} userName={userName}/>}
+
             <View style={{alignItems: position ? 'flex-end' : 'flex-start'}}>
-                {nameShow&&<Text style={[styles.userName, position ? {marginRight: 10} : {marginLeft: 10}]}>{userName}</Text>}
+                {nameShow&&<Text style={[styles.userName,userNameStyle, position ? rightUserNameStyle||leftUserNameStyle :leftUserNameStyle||rightUserNameStyle]}>{userName}</Text>}
                 <BubbleView checkImageFn={checkImageFn}
                             position={position}
                             bubbleColor={bubbleColor}
                             nameShow={nameShow}
                             messageData={data}
-                            rowId={rowId}
+                            bubbleStyle={bubbleStyle}
                             showDialogPopFn={showDialogPopFn}
                 />
             </View>
-            {position && <Avatar avatarStyle={avatarStyle.right} avatar={avatarImg} userName={userName}/>}
+            {position && <Avatar {...rightAvatarStyle} avatar={avatarImg} userName={userName}/>}
         </View>
             </View>
 

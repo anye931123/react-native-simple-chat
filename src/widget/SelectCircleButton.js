@@ -11,14 +11,14 @@ export default class SelectCircleButton extends Component {
 
 
     render() {
-        const {isSelected,btnStyle, children,circleStyle,selectedStyle,onPress,textStyle,rightText,leftText} = this.props
+        const {isSelected, children,selectCircleContainerStyle, commonStyle,selectedFalseStyle,selectedTrueStyle,textStyle,onPress,rightText,leftText} = this.props
         return (
             <TouchableOpacity
                 onPress={onPress}
-                style={btnStyle}
+                style={selectCircleContainerStyle}
             >
                 {leftText&&<Text style={textStyle}>{leftText}</Text>}
-            <View style={[styles.radio,circleStyle, isSelected && (selectedStyle?selectedStyle:styles.radioSelect)]}>
+                <View style={[ commonStyle, isSelected ? selectedTrueStyle:selectedFalseStyle]}>
                 {isSelected && children}
             </View>
                 {rightText&&<Text style={textStyle}>{rightText}</Text>}
@@ -26,22 +26,3 @@ export default class SelectCircleButton extends Component {
         )
     }
 }
-
-const styles = StyleSheet.create({
-
-    radio: {
-        alignItems: 'center',
-        width: 16,
-        height: 16,
-        marginRight: 5,
-        marginLeft: 5,
-        borderColor: Colors.gray,
-        borderWidth: 1,
-        borderRadius: 8
-    },
-    radioSelect: {
-        borderColor: Colors.blue,
-        backgroundColor: Colors.blue
-    },
-
-})

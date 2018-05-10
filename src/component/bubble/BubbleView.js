@@ -4,51 +4,61 @@ import {
     StyleSheet,
     Text,
     Dimensions,
-    PanResponder
+    PanResponder,
+    ActivityIndicator
 } from 'react-native';
 import Colors from '../../utils/Colors'
 import ImageView from "../../widget/ImageView";
 import _ from 'lodash'
 import TextBubble from './TextBubble';
 import ImageBubble from './ImageBubble';
-export default class BubbleView extends Component{
+
+export default class BubbleView extends Component {
 
 
-
-
-    constructor(){
+    constructor() {
         super()
-        this._panResponder=undefined
-        this.gestureXY={x:0,y:0}
+        this._panResponder = undefined
+        this.gestureXY = {x: 0, y: 0}
     }
 
     componentWillMount() {
-    this._panResponder = PanResponder.create({
-          onStartShouldSetPanResponderCapture: (evt, gestureState) => {
+        this._panResponder = PanResponder.create({
+            onStartShouldSetPanResponderCapture: (evt, gestureState) => {
 
-              const {pageX,pageY}=evt.nativeEvent
-              this.gestureXY={x:pageX,y:pageY}
-              return false
-          },
+                const {pageX, pageY} = evt.nativeEvent
+                this.gestureXY = {x: pageX, y: pageY}
+                return false
+            },
 
-    });
-}
-
-_showDialogPopFn=(message)=>{
-        const {showDialogPopFn}=this.props
-    if(showDialogPopFn){
-            showDialogPopFn(message,this.gestureXY.x,this.gestureXY.y)
+        });
     }
-}
 
-    render(){
-        const {position, bubbleColor, messageData, nameShow,} = this.props
-        const {message,images}=messageData
-        return(
-            <View  {...this._panResponder.panHandlers} style={[styles.container, position ? {justifyContent: 'flex-end',paddingRight:nameShow?6:4} : {justifyContent: 'flex-start',paddingLeft:nameShow?6:4}]}>
+    _showDialogPopFn = (message) => {
+        const {showDialogPopFn} = this.props
+        if (showDialogPopFn) {
+            showDialogPopFn(message, this.gestureXY.x, this.gestureXY.y)
+        }
+    }
 
-                {images&&<ImageBubble {...this.props} showDialogFn={this._showDialogPopFn}/>}
-                {message&&<TextBubble {...this.props} showDialogFn={this._showDialogPopFn}/>}
+    render() {
+        const {position, messageData, nameShow, textBubble, imageBubble, voiceBubble, loadingView,isShowLoading,loadingColor} = this.props
+        const {message, images, voice} = messageData
+        let paddingNum = nameShow ? 6 : 4
+        return (
+            <View  {...this._panResponder.panHandlers} style={[styles.container, position ?
+                {justifyContent: 'flex-end', paddingRight: paddingNum} : {
+                    justifyContent: 'flex-start',
+                    paddingLeft: paddingNum
+                }]}>
+                {isShowLoading&&(loadingView ? loadingView :
+                    <ActivityIndicator animating={true} color={loadingColor?loadingColor:Colors.blue} size={'small'}/>)}
+                {images && (imageBubble ? imageBubble :
+                    <ImageBubble {...this.props} showDialogFn={this._showDialogPopFn}/>)}
+                {message && (textBubble ? textBubble :
+                    <TextBubble {...this.props} showDialogFn={this._showDialogPopFn}/>)}
+                {voice && (voiceBubble ? voiceBubble : null)}
+
             </View>
         )
     }
@@ -58,7 +68,7 @@ _showDialogPopFn=(message)=>{
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-
+        alignItems: 'center',
         marginLeft: 6,
         marginRight: 6,
         width: Dimensions.get('window').width - 110
@@ -104,8 +114,8 @@ const styles = StyleSheet.create({
         width: 10,
         transform: [{rotateZ: '45deg'}]
     },
-    imagesContainer:{
-        flexDirection:'row',
+    imagesContainer: {
+        flexDirection: 'row',
     }
 
 })

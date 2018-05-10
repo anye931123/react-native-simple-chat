@@ -36,7 +36,7 @@ export default class ImageView extends  Component{
                 case "width":
                     ratio=newWidth/width
                     wantHeight=newHeight/ratio
-
+                    console.log('lallala',ratio,wantHeight)
                     break;
                 default:
                     ratio=newWidth/windowWidth
@@ -44,7 +44,7 @@ export default class ImageView extends  Component{
                     wantHeight=newHeight/ratio
 
             }
-
+            console.log(wantWidth,wantHeight)
             this.setState({
                 width:wantWidth,
                 height:wantHeight
