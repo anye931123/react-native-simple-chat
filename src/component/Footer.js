@@ -20,7 +20,6 @@ import VoiceOne from './voice/VoiceOne'
 export default class Footer extends Component {
     constructor(props) {
         super(props)
-        console.log("属性》》》》》》",props)
         this.state = {
             message: '',
         }
@@ -93,7 +92,7 @@ export default class Footer extends Component {
 
     render() {
         const {message} = this.state
-        const {sendPress, textInputStyle, textInputProps, animation, keyboardHide} = this.props
+        const {sendPress, textInputStyle, textInputProps, animation,showMessageTool} = this.props
         return (
             <KeyboardAvoidingView
                 behavior={Platform.select({
@@ -129,9 +128,9 @@ export default class Footer extends Component {
                     </View>
                     <MessageTools
                         ref={'MessageTools'}
-                        keyboardHide={keyboardHide}
                         animation={animation}
                         messageTools={this.messageTools}
+                        showMessageTool={showMessageTool}
                     />
                 </View>
             </KeyboardAvoidingView>

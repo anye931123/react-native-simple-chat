@@ -11,6 +11,7 @@ import _ from 'lodash'
 
 import PictureToolBar from './picture/PictureToolBar'
 import Colors from "../utils/Colors";
+import {windowHeight, windowWidth} from "../utils/utils";
 export default class CheckImagesMode extends Component {
 
     constructor() {
@@ -44,10 +45,13 @@ export default class CheckImagesMode extends Component {
             >
                 <TouchableWithoutFeedback accessible={false} onPress={() => this.setModalVisible(false)}>
                 <View style={styles.modalBackgroundStyle}>
-                    <Swiper loop={false}
+                    {images.length>0&&<Swiper loop={false}
                             index={index}
                             showsButtons={false}
                             dot={<View/>}
+                                              width={windowWidth}
+                                              height={windowHeight}
+
                             activeDot={<View/>}
                     >
                         {_.map(images, (image, index) =>
@@ -64,7 +68,7 @@ export default class CheckImagesMode extends Component {
                             </TouchableWithoutFeedback>
                             </View>
                         )}
-                    </Swiper>
+                    </Swiper>}
                     {toolBarShow&&<PictureToolBar
                         selectImages={new Set()}
                         toolBarShow={true}

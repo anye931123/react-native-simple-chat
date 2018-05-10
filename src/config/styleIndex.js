@@ -36,7 +36,7 @@ const layoutAnimationConfigs = [
 ];
 export const QQStyle = {
     chatStyle:{flex:1, backgroundColor:Colors.bg},
-    animation: layoutAnimationConfigs[0],
+    animation: layoutAnimationConfigs[1],
     leftAvatarStyle: {
         imageAvatarStyle: {},
         textAvatarStyle: {},

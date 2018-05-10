@@ -20,7 +20,7 @@ export default class TextBubble extends Component {
 
 
         return (
-            <TouchableOpacity  onLongPress={()=>showDialogFn(messageData)}>
+            <TouchableOpacity style={{padding:2}}  onLongPress={()=>showDialogFn(messageData)}>
             <PureText {...this.props}/>
             </TouchableOpacity>
         )

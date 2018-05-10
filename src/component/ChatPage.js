@@ -17,6 +17,7 @@ import PopDialog from '../widget/PopDialog'
 import FlatListView from '../widget/FlatListView';
 import _ from 'lodash'
 import {QQStyle} from '../config/styleIndex'
+
 const listData = [{
     img: imgs.avatarImg,
     message: "额外佛微微服",
@@ -123,19 +124,23 @@ export default class ChatPage extends Component {
             visible: false,
             dialogY: 0,
             dialogX: 0,
+            isMessageToolShow:0
         }
     }
+
 
     _keyboardDidShow = (e) => {
         this.setState({
             keyboardHeight: e.endCoordinates.height,
+            isMessageToolShow:0
         })
         // this.refs.messageList.scrollTo({y: 0, x: 0, animated: false})
     }
 
-    _keyboardHide = () => {
-        Keyboard.dismiss()
+    _keyboardWillShow = () => {
+        // this.refs.footer.hiddenMessaageTool()
     }
+
 
     _keyboardWillHide = (e) => {
         this.setState({
@@ -146,7 +151,8 @@ export default class ChatPage extends Component {
 
     componentWillMount() {
         this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
-        this.keyboardDidHideListener = Keyboard.addListener('keyboardWillHide', this._keyboardWillHide);
+        this.keyboardWillShowListener = Keyboard.addListener('keyboardWillShow', this._keyboardWillShow);
+        this.keyboardwillHideListener = Keyboard.addListener('keyboardWillHide', this._keyboardWillHide);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -165,7 +171,8 @@ export default class ChatPage extends Component {
 
     componentWillUnmount() {
         this.keyboardDidShowListener.remove();
-        this.keyboardDidHideListener.remove();
+        this.keyboardwillHideListener.remove();
+        this.keyboardWillShowListener.remove();
     }
 
     showPopDialog = (message, x, y) => {
@@ -184,7 +191,7 @@ export default class ChatPage extends Component {
 
     }
 
-    renderRow = ({item,index}) => {
+    renderRow = ({item, index}) => {
         const {
             messages,
             myNameShow,  //是否显示自己的名字
@@ -216,9 +223,9 @@ export default class ChatPage extends Component {
     }
 
 
-    _checkImageFn = (showToolBar,images, index) => {
+    _checkImageFn = (showToolBar, images, index) => {
 
-        this.refs.CheckImagesMode.setModalVisible(true, images, index,showToolBar)
+        this.refs.CheckImagesMode.setModalVisible(true, images, index, showToolBar)
     }
 
     sendPress = (message) => {
@@ -237,6 +244,16 @@ export default class ChatPage extends Component {
         // this.refs.messageList.scrollTo({y: 0, x: 0, animated: true})
     }
 
+    showMessageTools = (view) => {
+        console.log("++++++++=",view)
+        if(view!=null){
+            this.setState({ isMessageToolShow:0.1})
+        }else {
+            this.setState({ isMessageToolShow:0})
+        }
+
+    }
+
     render() {
         const {
             messages,
@@ -249,10 +266,10 @@ export default class ChatPage extends Component {
             keyboardHeight,
             dialogX,
             dialogY,
-            visible
+            visible,
+            isMessageToolShow
         } = this.state
-        console.log('visible', visible)
-        let dataSource = this.ds.cloneWithRows(messages)
+        console.log('visible+++++++>>>>>>', this.isMessageToolShow)
         return (
             <View style={QQStyle.chatStyle}>
 
@@ -266,29 +283,31 @@ export default class ChatPage extends Component {
 
                     />
                     {/*<ListView*/}
-                        {/*ref={'messageList'}*/}
-                        {/*dataSource={dataSource}*/}
-                        {/*renderRow={this.renderRow}*/}
-                        {/*enableEmptySections={true}*/}
+                    {/*ref={'messageList'}*/}
+                    {/*dataSource={dataSource}*/}
+                    {/*renderRow={this.renderRow}*/}
+                    {/*enableEmptySections={true}*/}
                     {/*/>*/}
 
                 </View>
-                <Animated.View style={{
+                <View style={{
                     marginBottom: Platform.select({
-                        android: 0,
+                        android:isMessageToolShow,
                         ios: keyboardHeight
                     })
                 }}>
-                    <Footer textInputStyle={textInputStyle}
-                            textInputProps={textInputProps}
-                            sendPress={this.sendPress}
-                            keyboardHide={this._keyboardHide}
-                            sendImageMessagesFn={sendImageMessagesFn}
-                            checkImageFn={this._checkImageFn}
-                            {...QQStyle}
+                    <Footer
+                        ref={"footer"}
+                        textInputStyle={textInputStyle}
+                        textInputProps={textInputProps}
+                        sendPress={this.sendPress}
+                        sendImageMessagesFn={sendImageMessagesFn}
+                        showMessageTool={this.showMessageTools}
+                        checkImageFn={this._checkImageFn}
+                        {...QQStyle}
 
                     />
-                </Animated.View>
+                </View>
                 <PopDialog visible={visible}
                            popStyle={{top: dialogY}}
                            triangleStyle={{left: dialogX}}

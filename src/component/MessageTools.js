@@ -3,7 +3,8 @@ import {
     View,
     Image,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
+    Keyboard
 } from 'react-native';
 import ToolsButton from './ToolsButton';
 import AnimationContainer from './AnimationContainer';
@@ -16,31 +17,82 @@ export default class MessageTools extends Component {
             onPressType: 0,
             messageToolView: null
         }
+        this.type=0
+        this.isExecute=false
+        this.isShow=false
     }
 
     buttonPress = (type) => {
-        const {keyboardHide, messageTools} = this.props
-        const {onPressType} = this.state
-        let messageToolView = messageTools[type-1].messageToolView
-        if (keyboardHide) {
-            keyboardHide()
+        this.type=type
+        this.isExecute=true
+        Keyboard.dismiss()
+        if(this.isShow){
+            return
         }
-
-        if (type == onPressType) {
-            this.setState({
-                onPressType: onPressType == 0 ? type : 0,
-                messageToolView: onPressType == 0 ? messageToolView : null
-            })
-        } else {
-            this.setState({
-                onPressType: type,
-                messageToolView
-            })
-        }
+       this.showMessageTool()
 
 
     }
 
+    showMessageTool=()=>{
+        const { messageTools,showMessageTool} = this.props
+        const {onPressType} = this.state
+        let messageToolView = messageTools[this.type-1].messageToolView
+        if (this.type == onPressType) {
+            this.setState({
+                onPressType: onPressType == 0 ? this.type : 0,
+                messageToolView: onPressType == 0 ? messageToolView : null
+            })
+            if(onPressType == 0 ){
+
+                if(showMessageTool){
+                    showMessageTool(messageToolView)
+                }
+            }else {
+
+                if(showMessageTool){
+                    showMessageTool(null)
+                }
+            }
+        } else {
+            this.setState({
+                onPressType: this.type,
+                messageToolView
+            })
+
+            if(showMessageTool){
+                showMessageTool(messageToolView)
+            }
+
+        }
+
+
+
+
+        this.isExecute=false
+    }
+    _keyboardDidShow=()=>{
+        this.isShow=true
+    }
+    _keyboardDidHide=()=>{
+        this.isShow=false
+        if(!this.isExecute){
+            return
+        }
+        this.showMessageTool()
+
+
+
+    }
+    componentWillMount() {
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+    }
+
+    componentWillUnmount() {
+        this.keyboardDidHideListener.remove()
+        this.keyboardDidShowListener.remove()
+    }
     resetButton = () => {
         this.setState({
             onPressType: 0,
@@ -51,6 +103,7 @@ export default class MessageTools extends Component {
     render() {
         const {onPressType, messageToolView} = this.state
         const {animation, messageTools} = this.props
+
         return (
             <View>
                 <View style={styles.container}>
