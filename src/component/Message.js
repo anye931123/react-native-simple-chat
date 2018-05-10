@@ -19,7 +19,6 @@ export default class Message extends Component {
 
     render() {
         const {data,
-            bubbleColor,
             myId,
             leftAvatarStyle,
             rightAvatarStyle,
@@ -28,11 +27,10 @@ export default class Message extends Component {
             timeStyle,
             timeShow,
             checkImageFn,
-            showDialogPopFn,
+
             userNameStyle,
             rightUserNameStyle,
             leftUserNameStyle,
-            bubbleStyle
         } = this.props
 
         const {
@@ -61,13 +59,10 @@ export default class Message extends Component {
 
             <View style={{alignItems: position ? 'flex-end' : 'flex-start'}}>
                 {nameShow&&<Text style={[styles.userName,userNameStyle, position ? rightUserNameStyle||leftUserNameStyle :leftUserNameStyle||rightUserNameStyle]}>{userName}</Text>}
-                <BubbleView checkImageFn={checkImageFn}
+                <BubbleView
                             position={position}
-                            bubbleColor={bubbleColor}
-                            nameShow={nameShow}
                             messageData={data}
-                            bubbleStyle={bubbleStyle}
-                            showDialogPopFn={showDialogPopFn}
+                            {...this.props}
                 />
             </View>
             {position && <Avatar {...rightAvatarStyle} avatar={avatarImg} userName={userName}/>}

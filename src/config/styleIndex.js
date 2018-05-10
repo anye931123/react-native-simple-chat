@@ -36,7 +36,7 @@ const layoutAnimationConfigs = [
 ];
 export const QQStyle = {
     chatStyle:{flex:1, backgroundColor:Colors.bg},
-    animation: layoutAnimationConfigs[1],
+    animation: layoutAnimationConfigs[0],
     leftAvatarStyle: {
         imageAvatarStyle: {},
         textAvatarStyle: {},
@@ -73,8 +73,28 @@ export const QQStyle = {
         }
 
     },
+    warningStyle:{
+        warningContainerStyle:{
+            width:20,
+            height:20,
+            backgroundColor:Colors.red,
+            borderRadius:10,
+            justifyContent:'center',
+            alignItems:'center',
+            marginRight:4,
+            marginLeft:4,
+        },
+        warningTextStyle:{
+            fontSize:10,
+            fontWeight:'bold',
+            color:Colors.white
+        }
+
+    },
     timeStyle: {
-        timeLabelContainerStyle: {},
+        timeLabelContainerStyle: {
+            marginBottom:10
+        },
         timeTextStyle: {}
     },
     popDialogStyle:{

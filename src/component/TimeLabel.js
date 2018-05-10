@@ -60,10 +60,10 @@ export default class TimeLabel extends Component{
 
 
     render(){
-        const {timeStyle,timeTextStyle}=this.props
+        const {timeLabelContainerStyle,timeTextStyle}=this.props
         const {time} =this.state
         return (<View style={styles.container}>
-            {time&&<View style={timeStyle}>
+            {time&&<View style={timeLabelContainerStyle}>
                 <Text style={[styles.time,timeTextStyle]}>{time}</Text>
             </View>}
         </View>)
@@ -77,7 +77,7 @@ const styles=StyleSheet.create({
     container:{
         flexDirection:'row',
         justifyContent:'center',
-        marginBottom:10
+
     },
     time:{
         fontSize:12,
