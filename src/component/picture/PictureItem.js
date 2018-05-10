@@ -8,10 +8,7 @@ import {
     Text
 } from 'react-native';
 
-import Colors from '../../utils/Colors'
 import SelectCircleButton from '../../widget/SelectCircleButton'
-import {getImageSource} from '../../utils/utils'
-const HEIGHT=156
 import ImageView from '../../widget/ImageView'
 export default class PictureItem extends Component {
 
@@ -37,9 +34,16 @@ export default class PictureItem extends Component {
 
     render() {
         const {radioSelected} = this.state
-        const {data,selectImageFun,selectImages,imagesTotal,checkImageFn,imageIndex,galleryItemImageStyle={},selectCircleButtonStyle={},
+        const {data,
+            selectImageFun,
+            selectImages,
+            imagesTotal,
+            checkImageFn,
+            imageIndex,
+            galleryItemImageStyle={},
+            selectCircleButtonStyle={},
         } = this.props
-        const {}=selectCircleButtonStyle
+
         let numLabel=0
         if(radioSelected){
             for(let image of selectImages.values()){
@@ -83,8 +87,6 @@ export default class PictureItem extends Component {
 
 
 const styles = StyleSheet.create({
-
-
 
 
 })
