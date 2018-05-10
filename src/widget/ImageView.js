@@ -66,10 +66,10 @@ export default class ImageView extends  Component{
 
     render(){
         const {width,height}=this.state
-        const {style,source,imageProps}=this.props
+        const {style,source,imageProps,auto}=this.props
         let imageUri=getImageSource(source)
         return<Image
-            style={[style,{width:width,height:height}]}
+            style={[style,auto&&{width:width,height:height}]}
             source={imageUri}
             {...imageProps}
         />

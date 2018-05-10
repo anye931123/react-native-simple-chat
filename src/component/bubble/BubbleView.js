@@ -3,7 +3,8 @@ import {
     View,
     StyleSheet,
     Text,
-    Dimensions
+    Dimensions,
+    PanResponder
 } from 'react-native';
 import Colors from '../../utils/Colors'
 import ImageView from "../../widget/ImageView";
@@ -17,18 +18,37 @@ export default class BubbleView extends Component{
 
     constructor(){
         super()
+        this._panResponder=undefined
+        this.gestureXY={x:0,y:0}
     }
 
+    componentWillMount() {
+    this._panResponder = PanResponder.create({
+          onStartShouldSetPanResponderCapture: (evt, gestureState) => {
 
+              const {pageX,pageY}=evt.nativeEvent
+              this.gestureXY={x:pageX,y:pageY}
+              return false
+          },
+
+    });
+}
+
+_showDialogPopFn=(message)=>{
+        const {showDialogPopFn}=this.props
+    if(showDialogPopFn){
+            showDialogPopFn(message,this.gestureXY.x,this.gestureXY.y)
+    }
+}
 
     render(){
         const {position, bubbleColor, messageData, nameShow,} = this.props
         const {message,images}=messageData
         return(
-            <View style={[styles.container, position ? {justifyContent: 'flex-end',paddingRight:nameShow?6:4} : {justifyContent: 'flex-start',paddingLeft:nameShow?6:4}]}>
+            <View  {...this._panResponder.panHandlers} style={[styles.container, position ? {justifyContent: 'flex-end',paddingRight:nameShow?6:4} : {justifyContent: 'flex-start',paddingLeft:nameShow?6:4}]}>
 
-                {images&&<ImageBubble {...this.props}/>}
-                {message&&<TextBubble {...this.props}/>}
+                {images&&<ImageBubble {...this.props} showDialogFn={this._showDialogPopFn}/>}
+                {message&&<TextBubble {...this.props} showDialogFn={this._showDialogPopFn}/>}
             </View>
         )
     }

@@ -20,3 +20,10 @@ export const addSelect=require('./addSelect.png')
 export const voiceButton=require('./voice_button.png')
 
 export const loading=require('./loading.gif')
+
+export const collect=require('./collect.png')
+export const copy=require('./copy.png')
+export const deleteIcon=require('./delete.png')
+export const multipleChoice=require('./multiple_choice.png')
+export const recall=require('./recall.png')
+export const transpond=require('./transpond.png')
