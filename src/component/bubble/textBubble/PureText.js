@@ -20,30 +20,61 @@ type TextBubbleStyle = {
 export default class PureText extends Component {
 
 
+    getContainerStyle = () => {
+        const {bubbleStyle} = this.props
+        const {textBubbleStyle, textBubbleContainerBgStyle} = bubbleStyle
+        let {left, right} = textBubbleStyle
+        let {leftColor = Colors.blue, rightColor = Colors.blue} = textBubbleContainerBgStyle
+        return{left,right,leftColor,rightColor}
+    }
+
     render() {
-        const {position,bubbleStyle={} , messageData, nameShow} = this.props
-        const {textBubbleStyle={},textBubbleContainerBgStyle={}}=bubbleStyle
-        const {left, right} = textBubbleStyle
-        const {leftColor,rightColor}=textBubbleContainerBgStyle
+        const {messageData,nameShow, position} = this.props
         const {message} = messageData
-        return (<View style={[styles.container, {
-            justifyContent: position ? 'flex-end':'flex-start',
-            paddingRight: nameShow ? 6 : 4,
-            paddingLeft: nameShow ? 6 : 4
-        }]}>
-            <View style={[
-                nameShow ? styles.triangle : styles.triangleNameFalse,
-                position ? [
-                    nameShow ? styles.triangleRight : styles.triangleNameFalse, rightColor && {
-                        borderColor: rightColor,
-                        backgroundColor: rightColor
-                    }] : [{left: 0}, leftColor && {
+
+        let paddingNum = nameShow ? 6 : 4
+
+        const {left, right,leftColor,rightColor}=this.getContainerStyle()
+
+        console.log("和研发是非得失第三方的",rightColor,leftColor)
+        let triangleStyle={}
+        if(position){
+            if(nameShow){
+                triangleStyle=[styles.triangle,styles.triangleRight,rightColor && {
+                    borderColor: rightColor,
+                    backgroundColor: rightColor
+                }]
+            }else {
+                triangleStyle=[styles.triangleNameFalse,rightColor && {
+                    borderColor: rightColor,
+                    backgroundColor: rightColor
+                }]
+            }
+
+        }else {
+            if(nameShow){
+                triangleStyle=[styles.triangle,{left: 0}, leftColor && {
                     borderColor: leftColor,
                     backgroundColor: leftColor
-                }]]}/>
+                }]
+            }else {
+                triangleStyle=[styles.triangleNameFalse,leftColor && {
+                    borderColor: leftColor,
+                    backgroundColor: leftColor
+                }]
+            }
+
+        }
+
+        return (<View style={[styles.container, {
+            justifyContent: position ? 'flex-end' : 'flex-start',
+            paddingRight: paddingNum,
+            paddingLeft: paddingNum
+        }]}>
+            <View style={triangleStyle}/>
             <View
                 style={[styles.textContainer, {backgroundColor: position ? rightColor : leftColor}]}>
-                <Text style={[styles.textStyle, position?right||left:left||right]}>{message}</Text>
+                <Text style={[styles.textStyle, position ? right : left]}>{message}</Text>
             </View>
 
 

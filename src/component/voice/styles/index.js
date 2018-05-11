@@ -27,10 +27,9 @@ export const stylesVoice = StyleSheet.create({
     dashedLine:{
         width:25,
         height:0,
-        borderWidth:0.8,
-        borderColor:Colors.red,
+        borderBottomWidth:2,
+        borderColor:Colors.blue,
         borderStyle:'dashed',
-        borderRadius:0.1
     },
     countDownContainer:{
         justifyContent:'center',

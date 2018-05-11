@@ -53,16 +53,30 @@ export const QQStyle = {
         }
 
     },
-    userNameStyle: {},
-    leftUserNameStyle: {marginLeft: 10},
-    rightUserNameStyle: {marginRight: 10},
+    rankAndNameStyle:{
+        userNameStyle: {},
+        leftUserNameStyle: {marginLeft: 5},
+        rightUserNameStyle: {marginRight: 5},
+        rankTextStyle:{
+            color:Colors.white
+        },
+        rankContainerStyle:{
+            marginLeft:10,
+            backgroundColor:Colors.red,
+            borderRadius:3,
+            paddingLeft:2,
+            paddingRight:2,
+
+        }
+    },
+
     bubbleStyle: {
         textBubbleStyle: {
             left: {},
             right: {}
         },
         textBubbleContainerBgStyle: {
-            leftColor: String,
+            leftColor: Colors.blue,
             rightColor: Colors.blue
         },
         imageBubbleContainerStyle: {},

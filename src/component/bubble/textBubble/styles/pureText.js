@@ -22,8 +22,6 @@ export const styles = StyleSheet.create({
     triangle: {
         position: "absolute",
         top: 12,
-        width: 0,
-        height: 0,
         borderStyle: 'solid',
         borderLeftWidth: 18,
         borderRightWidth: 14,

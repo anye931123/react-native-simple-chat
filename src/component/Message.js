@@ -9,7 +9,10 @@ import BubbleView from './bubble/BubbleView';
 import Avatar from './Avatar';
 
 import Colors from '../utils/Colors';
-import  TimeLabel from './TimeLabel'
+import TimeLabel from './TimeLabel'
+
+import RankAndName from './RankAndName'
+
 export default class Message extends Component {
 
     constructor() {
@@ -18,7 +21,8 @@ export default class Message extends Component {
 
 
     render() {
-        const {data,
+        const {
+            data,
             myId,
             leftAvatarStyle,
             rightAvatarStyle,
@@ -26,11 +30,7 @@ export default class Message extends Component {
             myNameShow,
             timeStyle,
             timeShow,
-            checkImageFn,
-
-            userNameStyle,
-            rightUserNameStyle,
-            leftUserNameStyle,
+            rankAndNameStyle
         } = this.props
 
         const {
@@ -38,38 +38,44 @@ export default class Message extends Component {
             userId,
             userName,
             time,
+            rank
         } = data
 
         let position = userId == myId //ture:right
 
-        let nameShow=false
-        if(position&&myNameShow){
-            nameShow=true
-        }else if(!position&&userNameShow){
-            nameShow=true
+        let nameShow = false
+        if (position && myNameShow) {
+            nameShow = true
+        } else if (!position && userNameShow) {
+            nameShow = true
         }
 
 
         return (
-            <View style={{ marginTop: 10,transform: [{rotateX: '180deg'}]}}>
+            <View style={{marginTop: 10, transform: [{rotateX: '180deg'}]}}>
 
-                {timeShow&&<TimeLabel {...timeStyle} time={time} />}
-            <View style={[styles.container, position && {justifyContent: 'flex-end'}]}>
-            {!position && <Avatar {...leftAvatarStyle} avatar={avatarImg} userName={userName}/>}
+                {timeShow && <TimeLabel {...timeStyle} time={time}/>}
+                <View style={[styles.container, position && {justifyContent: 'flex-end'}]}>
 
-            <View style={{alignItems: position ? 'flex-end' : 'flex-start'}}>
-                {nameShow&&<Text style={[styles.userName,userNameStyle, position ? rightUserNameStyle||leftUserNameStyle :leftUserNameStyle||rightUserNameStyle]}>{userName}</Text>}
-                <BubbleView
+                    {!position && <Avatar {...leftAvatarStyle} avatar={avatarImg} userName={userName}/>}
+
+                    <View style={{alignItems: position ? 'flex-end' : 'flex-start'}}>
+
+                        {nameShow &&<RankAndName {...rankAndNameStyle}  messageData={data}/>}
+
+                        <BubbleView
                             position={position}
                             messageData={data}
                             {...this.props}
-                />
-            </View>
-            {position && <Avatar {...rightAvatarStyle} avatar={avatarImg} userName={userName}/>}
-        </View>
+                            nameShow={nameShow}
+                        />
+
+                    </View>
+                    {position && <Avatar {...rightAvatarStyle} avatar={avatarImg} userName={userName}/>}
+                </View>
             </View>
 
-                )
+        )
     }
 }
 
@@ -80,9 +86,5 @@ const styles = StyleSheet.create({
         marginRight: 10,
         flexDirection: 'row',
     },
-    userName: {
-        fontSize: 12,
-        color: Colors.gray,
-        marginBottom: 5,
-    }
+
 })

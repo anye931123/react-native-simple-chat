@@ -10,6 +10,7 @@ import {
 import ImageView from "../../widget/ImageView";
 import _ from 'lodash'
 import {MAXWIDTH} from '../../config'
+import Colors from "../../utils/Colors";
 
 export default class ImageBubble extends Component {
 
@@ -35,7 +36,12 @@ export default class ImageBubble extends Component {
 
     render() {
         const {scrollEnabled} = this.state
-        const {messageData, checkImageFn, showDialogFn, imageBubbleContainerStyle,imageBubbleStyle={}} = this.props
+        const {messageData,
+            checkImageFn,
+            showDialogFn,
+            imageBubbleContainerStyle,
+            imageBubbleStyle={}
+        } = this.props
         const {images} = messageData
         return (
             <View style={[styles.imagesContainer,imageBubbleContainerStyle]}>
@@ -76,8 +82,9 @@ export default class ImageBubble extends Component {
 
 const styles = StyleSheet.create({
     imagesContainer: {
-        flexDirection: 'row',
         borderRadius: 7,
-        overflow: 'hidden'
+        overflow: 'hidden',
+        borderWidth:1,
+        borderColor:Colors.transparent
     }
 })

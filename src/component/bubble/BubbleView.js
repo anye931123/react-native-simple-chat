@@ -14,6 +14,7 @@ import TextBubble from './TextBubble';
 import ImageBubble from './ImageBubble';
 import Warning from '../../widget/WarningView'
 import {messageStates} from '../../config'
+
 export default class BubbleView extends Component {
 
 
@@ -42,49 +43,58 @@ export default class BubbleView extends Component {
         }
     }
 
+    _showMessageStateView = (messageState) => {
+        const {
+            loadingView,
+            warningView,
+            otherStateViewsFn,
+            loadingColor,
+            warningStyle
+        } = this.props
+        let widget = null
+        switch (messageState) {
+            case messageStates.sending:
+                widget = (loadingView ? loadingView :
+                    <ActivityIndicator animating={true} color={loadingColor ? loadingColor : Colors.blue}
+                                       size={'small'}/>)
+                break;
+            case messageStates.sendSuccess:
+                break;
+            case messageStates.sendFail:
+                widget = (warningView ? warningView : <Warning {...warningStyle}/>)
+                break;
+            default:
+                widget = (otherStateViewsFn ? otherStateViewsFn(messageState) : null)
+        }
+
+        return widget
+    }
+
     render() {
-        const {position,
+        const {
+            position,
             messageData,
             nameShow,
             textBubble,
             imageBubble,
             voiceBubble,
-            loadingView,
-            warningView,
-            otherStateViewsFn,
             bubbleViewsFn,
-            loadingColor,
-            warningStyle} = this.props
-        const {message, images, voice,messageState} = messageData
+        } = this.props
+        const {message, images, voice, messageState} = messageData
         let paddingNum = nameShow ? 6 : 4
-        let widget=null
-        switch (messageState){
-            case messageStates.sending:
-                widget= (loadingView ? loadingView :<ActivityIndicator animating={true} color={loadingColor?loadingColor:Colors.blue} size={'small'}/>)
-                break;
-            case messageStates.sendSuccess:
-                break;
-            case messageStates.sendFail:
-                widget=(warningView?warningView:<Warning {...warningStyle}/>)
-                break;
-            default:
-                widget=(otherStateViewsFn?otherStateViewsFn(messageState):null)
-        }
+
         return (
             <View  {...this._panResponder.panHandlers} style={[styles.container, position ?
-                {justifyContent: 'flex-end', paddingRight: paddingNum} : {
-                    justifyContent: 'flex-start',
-                    paddingLeft: paddingNum
-                }]}>
-                {position&&widget}
+                {paddingRight: paddingNum} : {paddingLeft: paddingNum}]}>
+                {position && this._showMessageStateView(messageState)}
                 {images && (imageBubble ? imageBubble :
                     <ImageBubble {...this.props} showDialogFn={this._showDialogPopFn}/>)}
                 {message && (textBubble ? textBubble :
                     <TextBubble {...this.props} showDialogFn={this._showDialogPopFn}/>)}
                 {voice && (voiceBubble ? voiceBubble : null)}
 
-                {bubbleViewsFn&&bubbleViewsFn(messageData)}
-                {!position&&widget}
+                {bubbleViewsFn && bubbleViewsFn(messageData)}
+                {!position && this._showMessageStateView(messageState)}
             </View>
         )
     }

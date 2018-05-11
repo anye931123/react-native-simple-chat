@@ -64,7 +64,8 @@ export default class App extends Component {
             userName: '小明',
             message: message,
             time:new Date(),
-            messageState:0
+            messageState:0,
+            rank:"群主"
         }
 
         data.unshift(myMessage)
@@ -85,7 +86,8 @@ export default class App extends Component {
             userName: '小明',
             images: images,
             time:new Date(),
-            messageState:-1
+            messageState:-1,
+            rank:"群主"
 
         }
 
