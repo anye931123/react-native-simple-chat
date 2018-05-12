@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 
 import {
     TouchableOpacity,
@@ -7,7 +7,7 @@ import {
     StyleSheet
 } from 'react-native'
 
-export default class ToolsButton extends Component {
+export default class ToolsButton extends PureComponent {
 
     constructor() {
         super()

@@ -1,4 +1,4 @@
-import React,{Component} from 'react'
+import React,{PureComponent} from 'react'
 import {
     View,
     Text,
@@ -23,7 +23,7 @@ moment.locale('zh-cn', {
     }
 });
 
-export default class TimeLabel extends Component{
+export default class TimeLabel extends PureComponent{
 
     constructor(){
         super()

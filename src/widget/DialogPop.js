@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {PureComponent} from 'react'
 import {
     View,
     StyleSheet,
@@ -9,7 +9,7 @@ import {windowHeight, windowWidth} from '../utils/utils'
 import ModeView from './ModeView'
 import _ from 'lodash'
 import DialogPopButton from './DialogPopButton'
-export default class DialogPop extends Component {
+export default class DialogPop extends PureComponent {
 
 
 

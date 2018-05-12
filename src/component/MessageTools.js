@@ -79,19 +79,31 @@ export default class MessageTools extends Component {
         if(!this.isExecute){
             return
         }
+
         this.showMessageTool()
 
 
 
     }
+    _keyboardWillShow = () => {
+         this.resetButton()
+    }
+    _keyboardWillHide=()=>{
+        this.isExecute=false
+        this.showMessageTool()
+    }
     componentWillMount() {
         this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
         this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+        this.keyboardWillHideListener = Keyboard.addListener('keyboardWillHide', this._keyboardWillHide);
+        this.keyboardWillShowListener=Keyboard.addListener('keyboardWillShow', this._keyboardWillShow);
     }
 
     componentWillUnmount() {
         this.keyboardDidHideListener.remove()
         this.keyboardDidShowListener.remove()
+        this.keyboardWillHideListener.remove()
+        this.keyboardWillShowListener.remove()
     }
     resetButton = () => {
         this.setState({

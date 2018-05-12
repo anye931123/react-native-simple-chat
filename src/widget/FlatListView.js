@@ -31,52 +31,32 @@ export default class FlatListView extends PureComponent {
         this._listRef.getNode().recordInteraction();
     }
 
-    _keyExtractor = (item, index) =>{
-        const {horizontal}=this.props
-        return horizontal ? index+'h' : index+'v'
-        } ;
+    _keyExtractor = (item, index) => {
+        const {horizontal} = this.props
+        return horizontal ? index + 'h' : index + 'v'
+    };
+
+    _scrollToOffset=(offset)=>{
+     this._listRef.getNode().scrollToOffset(offset)
+    }
+
     render() {
-        const {data,
-            renderItem,
-            listHeader,
-            listFooter,
-            numColumns,
+        const {
             horizontal,
-            onEndReached,
-            onEndReachedThreshold,
-            refreshing,
-            disableVirtualization,
-            legacyImplementation,
-            onRefresh,
             viewabilityConfig,
             removeClippedSubviews,
-            flatListProps,
-            style
         } = this.props;
         return (
-                <AnimatedFlatList
-                    style={style}
-                    ListHeaderComponent={listHeader}
-                     ListFooterComponent={listFooter}
-                    data={data}
-                    disableVirtualization={disableVirtualization}
-                    horizontal={horizontal}
-                    keyExtractor={this._keyExtractor}
-                    key={horizontal ? 'h' : 'v' }
-                    legacyImplementation={legacyImplementation}
-                    numColumns={numColumns}
-                    onEndReached={onEndReached}
-                    onEndReachedThreshold={onEndReachedThreshold}
-                    onRefresh={onRefresh}
-                    onScroll={horizontal?this._scrollSinkX:this._scrollSinkY}
-                    onViewableItemsChanged={this._onViewableItemsChanged}
-                    ref={this._captureRef}
-                    refreshing={refreshing}
-                    renderItem={renderItem}
-                    viewabilityConfig={viewabilityConfig?viewabilityConfig:VIEWABILITY_CONFIG}
-                    removeClippedSubviews={removeClippedSubviews}
-                    {...flatListProps}
-                />
+            <AnimatedFlatList
+                keyExtractor={this._keyExtractor}
+                key={horizontal ? 'h' : 'v'}
+                onScroll={horizontal ? this._scrollSinkX : this._scrollSinkY}
+                onViewableItemsChanged={this._onViewableItemsChanged}
+                ref={this._captureRef}
+                viewabilityConfig={viewabilityConfig ? viewabilityConfig : VIEWABILITY_CONFIG}
+                removeClippedSubviews={removeClippedSubviews}
+                {...this.props}
+            />
 
         )
     }
@@ -94,8 +74,8 @@ export default class FlatListView extends PureComponent {
             section?: any,
         }>
     }) => {
-        const {onViewableItemsChanged}=this.props
-        if(onViewableItemsChanged){
+        const {onViewableItemsChanged} = this.props
+        if (onViewableItemsChanged) {
             onViewableItemsChanged(info)
         }
 

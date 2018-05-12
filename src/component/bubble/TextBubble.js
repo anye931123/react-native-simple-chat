@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {
     View,
     StyleSheet,
@@ -8,11 +8,7 @@ import {
 } from 'react-native';
 
 import PureText from './textBubble/PureText'
-export default class TextBubble extends Component {
-    constructor() {
-        super()
-    }
-
+export default class TextBubble extends PureComponent {
 
     render() {
 

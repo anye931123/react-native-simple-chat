@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {PureComponent} from 'react'
 import {
     View,
     Text,
@@ -7,7 +7,7 @@ import {
 } from 'react-native'
 import Colors from "../utils/Colors";
 
-export default class SelectCircleButton extends Component {
+export default class SelectCircleButton extends PureComponent {
 
 
     render() {

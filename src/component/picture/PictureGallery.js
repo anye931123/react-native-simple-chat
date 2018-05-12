@@ -72,12 +72,12 @@ export default class PictureGallery extends Component {
          const {sendImageMessagesFn,showToolBar,galleryContainerStyle}=this.props
         return (<View style={galleryContainerStyle}>
             <FlatListView
+                ref
                 horizontal={true}
                 data={_.clone(data)}
                 renderItem={this.renderRow}
                 numColumns={1}
                 showsHorizontalScrollIndicator={false}
-
             />
             {showToolBar&&<PictureToolBar
                 gotoAlbumFn={() => {}}

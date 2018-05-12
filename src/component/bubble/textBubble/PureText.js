@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {
     View,
 
@@ -17,7 +17,7 @@ type TextBubbleStyle = {
     },
     textStyle: Object,//文字气泡文字样式
 }
-export default class PureText extends Component {
+export default class PureText extends PureComponent {
 
 
     getContainerStyle = () => {

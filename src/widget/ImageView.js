@@ -1,11 +1,11 @@
-import React,{Component} from 'react';
+import React,{PureComponent} from 'react';
 
 import {
     Image
 } from 'react-native';
 import {getImageSource,windowWidth} from "../utils/utils";
 
-export default class ImageView extends  Component{
+export default class ImageView extends  PureComponent{
 
 
     constructor(props){

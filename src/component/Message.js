@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {
     View,
     Image,
@@ -13,7 +13,7 @@ import TimeLabel from './TimeLabel'
 
 import RankAndName from './RankAndName'
 
-export default class Message extends Component {
+export default class Message extends PureComponent {
 
     constructor() {
         super()
@@ -30,7 +30,8 @@ export default class Message extends Component {
             myNameShow,
             timeStyle,
             timeShow,
-            rankAndNameStyle
+            rankAndNameStyle,
+            messageContainerStyle
         } = this.props
 
         const {
@@ -52,7 +53,7 @@ export default class Message extends Component {
 
 
         return (
-            <View style={{marginTop: 10, transform: [{rotateX: '180deg'}]}}>
+            <View style={messageContainerStyle}>
 
                 {timeShow && <TimeLabel {...timeStyle} time={time}/>}
                 <View style={[styles.container, position && {justifyContent: 'flex-end'}]}>

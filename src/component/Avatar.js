@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 
 import {
     View,
@@ -16,7 +16,7 @@ type avatarStyle={
     textAvatarContainerStyle:Object
 }
 
-export default class Avatar extends Component {
+export default class Avatar extends PureComponent {
     constructor() {
         super()
 

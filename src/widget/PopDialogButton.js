@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{PureComponent} from 'react';
 import {
     View,
     TouchableOpacity,
@@ -9,7 +9,7 @@ import {
 import ImageView from "./ImageView";
 import Colors from "../utils/Colors";
 
-export default class DialogPopButton extends Component{
+export default class DialogPopButton extends PureComponent{
 
     constructor(){
         super()

@@ -37,10 +37,20 @@ const layoutAnimationConfigs = [
 export const QQStyle = {
     chatStyle:{flex:1, backgroundColor:Colors.bg},
     animation: layoutAnimationConfigs[0],
+    messageContainerStyle:{
+      paddingTop:10,
+    },
     leftAvatarStyle: {
-        imageAvatarStyle: {},
+        imageAvatarStyle: {
+            width:50,
+            height:50,
+            borderRadius:5
+        },
         textAvatarStyle: {},
         textAvatarContainerStyle: {
+            width:50,
+            height:50,
+            borderRadius:5,
             backgroundColor:Colors.blue
         }
 

@@ -75,9 +75,9 @@ export default class BubbleView extends Component {
             position,
             messageData,
             nameShow,
-            textBubble,
-            imageBubble,
-            voiceBubble,
+            textBubbleFn,
+            imageBubbleFn,
+            voiceBubbleFn,
             bubbleViewsFn,
         } = this.props
         const {message, images, voice, messageState} = messageData
@@ -87,12 +87,11 @@ export default class BubbleView extends Component {
             <View  {...this._panResponder.panHandlers} style={[styles.container, position ?
                 {paddingRight: paddingNum} : {paddingLeft: paddingNum}]}>
                 {position && this._showMessageStateView(messageState)}
-                {images && (imageBubble ? imageBubble :
+                {images && (imageBubbleFn ? imageBubbleFn(images) :
                     <ImageBubble {...this.props} showDialogFn={this._showDialogPopFn}/>)}
-                {message && (textBubble ? textBubble :
+                {message && (textBubbleFn ? textBubbleFn(message) :
                     <TextBubble {...this.props} showDialogFn={this._showDialogPopFn}/>)}
-                {voice && (voiceBubble ? voiceBubble : null)}
-
+                {voice && (voiceBubbleFn ? voiceBubbleFn() : null)}
                 {bubbleViewsFn && bubbleViewsFn(messageData)}
                 {!position && this._showMessageStateView(messageState)}
             </View>

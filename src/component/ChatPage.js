@@ -134,12 +134,10 @@ export default class ChatPage extends Component {
             keyboardHeight: e.endCoordinates.height,
             isMessageToolShow:0
         })
-        // this.refs.messageList.scrollTo({y: 0, x: 0, animated: false})
+         this.refs.messageList._scrollToOffset({y: 0, x: 0, animated: true})
     }
 
-    _keyboardWillShow = () => {
-        // this.refs.footer.hiddenMessaageTool()
-    }
+
 
 
     _keyboardWillHide = (e) => {
@@ -245,7 +243,6 @@ export default class ChatPage extends Component {
     }
 
     showMessageTools = (view) => {
-        console.log("++++++++=",view)
         if(view!=null){
             this.setState({ isMessageToolShow:0.1})
         }else {
@@ -269,25 +266,20 @@ export default class ChatPage extends Component {
             visible,
             isMessageToolShow
         } = this.state
-        console.log('visible+++++++>>>>>>', this.isMessageToolShow)
         return (
             <View style={QQStyle.chatStyle}>
 
-                <View style={{flex: 1, transform: [{rotateX: '180deg'}]}}>
+                <View style={{flex: 1,}}>
 
                     <FlatListView
+                        ref={'messageList'}
                         horizontal={false}
                         data={_.clone(messages)}
                         renderItem={this.renderRow}
                         numColumns={1}
+                        inverted={true}
 
                     />
-                    {/*<ListView*/}
-                    {/*ref={'messageList'}*/}
-                    {/*dataSource={dataSource}*/}
-                    {/*renderRow={this.renderRow}*/}
-                    {/*enableEmptySections={true}*/}
-                    {/*/>*/}
 
                 </View>
                 <View style={{

@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{PureComponent} from 'react';
 import {
     View,
     TouchableOpacity,
@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 import Colors from '../utils/Colors';
-export default class Send extends Component{
+export default class Send extends PureComponent{
 
     constructor(){
         super()

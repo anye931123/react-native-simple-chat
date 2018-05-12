@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {
     View,
     TextInput,
@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 import Colors from '../utils/Colors';
-export default class InputTool extends Component {
+export default class InputTool extends PureComponent {
 
     constructor() {
         super()

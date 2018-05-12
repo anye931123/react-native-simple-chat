@@ -1,4 +1,4 @@
-import React,{Component} from 'react'
+import React,{PureComponent} from 'react'
 import {
     TouchableOpacity,
     Text,
@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import Colors from "../utils/Colors";
 
-export default class WarningView extends Component{
+export default class WarningView extends PureComponent{
 
     render(){
 
