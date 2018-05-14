@@ -134,7 +134,7 @@ export default class ChatPage extends Component {
             keyboardHeight: e.endCoordinates.height,
             isMessageToolShow:0
         })
-         this.refs.messageList._scrollToOffset({y: 0, x: 0, animated: true})
+
     }
 
 
@@ -231,7 +231,7 @@ export default class ChatPage extends Component {
         if (sendFn) {
             sendFn(message)
         }
-        // this.refs.messageList.scrollTo({y: 0, x: 0, animated: true})
+        this.refs.messageList._scrollToOffset({y: 0, x: 0, animated: true})
     }
     sendImageMessagesFn = (images) => {
         const {sendImageMessagesFn} = this.props
@@ -239,7 +239,7 @@ export default class ChatPage extends Component {
             sendImageMessagesFn(images)
         }
 
-        // this.refs.messageList.scrollTo({y: 0, x: 0, animated: true})
+        this.refs.messageList._scrollToOffset({y: 0, x: 0, animated: true})
     }
 
     showMessageTools = (view) => {

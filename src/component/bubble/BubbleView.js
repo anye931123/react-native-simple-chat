@@ -27,7 +27,6 @@ export default class BubbleView extends Component {
     componentWillMount() {
         this._panResponder = PanResponder.create({
             onStartShouldSetPanResponderCapture: (evt, gestureState) => {
-
                 const {pageX, pageY} = evt.nativeEvent
                 this.gestureXY = {x: pageX, y: pageY}
                 return false
