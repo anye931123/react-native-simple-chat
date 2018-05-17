@@ -1,5 +1,6 @@
+import ChatPage from './component/ChatPage'
 
+export {
+    ChatPage
+}
 
-export const styleConfig=require("./config/styleIndex")
-
-export const ChatPage= require("./component/ChatPage")

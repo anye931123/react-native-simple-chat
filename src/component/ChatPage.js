@@ -16,62 +16,7 @@ import CheckImagesMode from './CheckImagesMode'
 import PopDialog from '../widget/PopDialog'
 import FlatListView from '../widget/FlatListView';
 import _ from 'lodash'
-import {QQStyle} from '../config/styleIndex'
-
-const listData = [{
-    img: imgs.avatarImg,
-    message: "额外佛微微服",
-    userId: 1
-}, {
-    img: imgs.avatarImg,
-    message: "额外佛微微服务收费为服务费卫生服务",
-    userId: 1
-}, {
-    message: "额外佛微微服务收费为服务费卫生服放水电费水电费的说法是的范德萨发水电费水电费水电费水电费水电费水电费是的发送到",
-    userId: 2,
-    userName: "小明"
-}, {
-    img: imgs.avatarImg,
-    message: "额外佛微为服务费卫生服务",
-    userId: 1
-}, {
-    img: imgs.avatarImg,
-    message: "额外佛微微服务收费为服务费卫生服务",
-    userId: 1
-}, {
-    img: imgs.avatarImg,
-    message: "额外佛微微服卫生服务",
-    userId: 1
-}, {
-    img: imgs.avatarImg,
-    message: "额",
-    userId: 1
-}, {
-    img: imgs.avatarImg,
-    message: "额外佛微微服务收费为服务费卫生服放水电费水电费的说法是的范德萨发水电费水电费水电费水电费水电费水电费是的发送到",
-    userId: 1
-}, {
-    img: imgs.avatarImg,
-    message: "额外",
-    userId: 1
-}, {
-    message: "额外佛微微服务收费为服务费卫生服放水电费水电费的说法是的范德萨发水电费水电费水电费水电费水电费水电费是的发送到",
-    userId: 2,
-    userName: "小明"
-}, {
-    img: imgs.avatarImg,
-    message: "额外佛微微服务收",
-    userId: 1
-}, {
-    img: imgs.avatarImg,
-    message: "额外佛微微服",
-    userId: 1
-}, {
-    img: imgs.avatarImg,
-    message: "额外佛微微服务收费为服务费卫生服务",
-    userId: 1
-}]
-
+import {STYLES} from '../config'
 
 let DIALOG_POP_CONFIG = [{
     icon: imgs.copy,
@@ -113,18 +58,19 @@ let DIALOG_POP_CONFIG = [{
 let messagesAddress = new Set()
 export default class ChatPage extends Component {
 
-    constructor() {
-        super()
-        this.ds = new ListView.DataSource(
-            {
-                rowHasChanged: (r1, r2) => r1 !== r2
-            })
+    constructor(props) {
+        super(props)
+
+        this.selectStyle=props.styleType&&STYLES[props.styleType]?STYLES[props.styleType]:STYLES['QQ']
+        console.log(props)
+        this.globalStyle=_.defaultsDeep(props.style,this.selectStyle)
         this.state = {
             keyboardHeight: 0,
             visible: false,
             dialogY: 0,
             dialogX: 0,
-            isMessageToolShow:0
+            isMessageToolShow:0,
+            messages:props.messages
         }
     }
 
@@ -135,9 +81,6 @@ export default class ChatPage extends Component {
         })
 
     }
-
-
-
 
     _keyboardWillHide = (e) => {
         this.setState({
@@ -162,16 +105,17 @@ export default class ChatPage extends Component {
         this.keyboardWillShowListener.remove();
     }
     componentWillReceiveProps(nextProps) {
-
         const {messages} = nextProps
+
         messagesAddress.clear()
+
         let messagesLength = messages.length
         while ((messagesLength = messagesLength - 7) > 0) {
             messagesAddress.add(messagesLength)
         }
 
         this.setState({
-            data: nextProps.data
+            messages:nextProps.messages
         })
     }
 
@@ -212,7 +156,7 @@ export default class ChatPage extends Component {
 
         }
         return <Message
-            {...QQStyle}
+            {...this.globalStyle}
             data={item}
             myId={myId}
             timeShow={timeShow}
@@ -257,35 +201,35 @@ export default class ChatPage extends Component {
 
     render() {
         const {
-            messages,
+
             textInputStyle,
             textInputProps,
-            sendImageMessagesFn
+            sendImageMessagesFn,
+            inverted=true,
+            style
         } = this.props
+
 
         const {
             keyboardHeight,
             dialogX,
             dialogY,
             visible,
-            isMessageToolShow
+            isMessageToolShow,
+            messages
         } = this.state
+
         return (
-            <View style={QQStyle.chatStyle}>
-
-                <View style={{flex: 1,}}>
-
-                    <FlatListView
+            <View style={this.globalStyle.chatStyle}>
+                 <FlatListView
                         ref={'messageList'}
                         horizontal={false}
                         data={_.clone(messages)}
                         renderItem={this.renderRow}
                         numColumns={1}
-                        inverted={true}
+                        inverted={inverted}
 
                     />
-
-                </View>
                 <View style={{
                     marginBottom: Platform.select({
                         android:isMessageToolShow,
@@ -300,7 +244,7 @@ export default class ChatPage extends Component {
                         sendImageMessagesFn={sendImageMessagesFn}
                         showMessageTool={this.showMessageTools}
                         checkImageFn={this._checkImageFn}
-                        {...QQStyle}
+                        {...this.globalStyle}
 
                     />
                 </View>

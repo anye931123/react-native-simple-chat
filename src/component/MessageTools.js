@@ -1,8 +1,6 @@
 import React, {Component} from "react";
 import {
     View,
-    Image,
-    TouchableOpacity,
     StyleSheet,
     Keyboard,
     Platform
@@ -67,27 +65,18 @@ export default class MessageTools extends Component {
 
         }
 
-
         this.isExecute=false
     }
 
     _keyboardDidShow=(e)=>{
-        const {fixHeight}=this.props
         this.isShow=true
-        if(fixHeight){
-            return
-        }
-        this.messageToolHeight=e.endCoordinates.height
     }
     _keyboardDidHide=()=>{
         this.isShow=false
         if(!this.isExecute){
             return
         }
-
         Platform.OS=='android'&&this.showMessageTool()
-
-
 
     }
     _keyboardWillShow = (e) => {
@@ -97,7 +86,6 @@ export default class MessageTools extends Component {
     }
 
     _keyboardWillHide=()=>{
-        console.log('hahahahha')
         this.isShow=false
         if(!this.isExecute){
             return

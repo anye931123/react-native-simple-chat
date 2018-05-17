@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import {
     View
 } from 'react-native'
-import ChatPage from './src/component/ChatPage';
-import PictureGallery from "./src/component/picture/PictureGallery"
+import {ChatPage} from './src';
 export default class App extends Component {
 
     constructor(props) {
@@ -103,12 +102,17 @@ export default class App extends Component {
         const {data} = this.state
         return <View style={{flex:1}}>
             <ChatPage
+                styleType={'QQ'}
+                style={{
+
+                }}
                 sendFn={this.sendMessage}
                 sendImageMessagesFn={this.sendImageMessagesFn}
                 messages={data}
-                myNameShow={false}
+                myNameShow={true}
                 userNameShow={true}
                 myId={"000"}         //我的id 用户id
+                inverted={true}
 
             />
         </View>

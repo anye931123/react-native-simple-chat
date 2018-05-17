@@ -54,8 +54,7 @@ export default class BubbleView extends Component {
         switch (messageState) {
             case messageStates.sending:
                 widget = (loadingView ? loadingView :
-                    <ActivityIndicator animating={true} color={loadingColor ? loadingColor : Colors.blue}
-                                       size={'small'}/>)
+                    <ActivityIndicator animating={true} color={loadingColor ? loadingColor : Colors.blue} size={'small'}/>)
                 break;
             case messageStates.sendSuccess:
                 break;
@@ -79,6 +78,7 @@ export default class BubbleView extends Component {
             voiceBubbleFn,
             bubbleViewsFn,
         } = this.props
+
         const {message, images, voice, messageState} = messageData
         let paddingNum = nameShow ? 6 : 4
 
