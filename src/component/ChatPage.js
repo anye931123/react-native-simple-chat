@@ -131,7 +131,6 @@ export default class ChatPage extends Component {
 
     _keyboardDidShow = (e) => {
         this.setState({
-            keyboardHeight: e.endCoordinates.height,
             isMessageToolShow:0
         })
 
@@ -146,13 +145,22 @@ export default class ChatPage extends Component {
         })
 
     }
+    _keyboardWillShow=(e)=>{
+        this.setState({
+            keyboardHeight: e.endCoordinates.height,
+        })
+    }
 
     componentWillMount() {
         this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
         this.keyboardWillShowListener = Keyboard.addListener('keyboardWillShow', this._keyboardWillShow);
         this.keyboardwillHideListener = Keyboard.addListener('keyboardWillHide', this._keyboardWillHide);
     }
-
+    componentWillUnmount() {
+        this.keyboardDidShowListener.remove();
+        this.keyboardwillHideListener.remove();
+        this.keyboardWillShowListener.remove();
+    }
     componentWillReceiveProps(nextProps) {
 
         const {messages} = nextProps
@@ -167,11 +175,7 @@ export default class ChatPage extends Component {
         })
     }
 
-    componentWillUnmount() {
-        this.keyboardDidShowListener.remove();
-        this.keyboardwillHideListener.remove();
-        this.keyboardWillShowListener.remove();
-    }
+
 
     showPopDialog = (message, x, y) => {
         if (message) {

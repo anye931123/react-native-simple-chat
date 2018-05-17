@@ -21,12 +21,17 @@ export default class PictureToolBar extends Component {
 
 
     render() {
-        const {gotoAlbumFn, selectImages, sendImageMessagesFn, editImageFn, toolBarShow} = this.props
+        const {gotoAlbumFn, selectImages, sendImageMessagesFn, editImageFn, toolBarShow,getLayoutMsg} = this.props
         const {radioSelected} = this.state
         let sendBtnState = selectImages.size > 0
         let editBtnState = selectImages.size == 1
         return (
-            <View style={[styles.container, toolBarShow && {
+            <View
+                onLayout={({nativeEvent:{layout}})=>{
+                    getLayoutMsg&&getLayoutMsg(layout)
+
+                }}
+                style={[styles.container, toolBarShow && {
                 borderTopColor: Colors.transparent,
                 backgroundColor: Colors.imagesModeBg
             }]}>

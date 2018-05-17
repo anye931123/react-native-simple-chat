@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import {
+    View
+} from 'react-native'
 import ChatPage from './src/component/ChatPage';
 import PictureGallery from "./src/component/picture/PictureGallery"
 export default class App extends Component {
@@ -98,14 +101,16 @@ export default class App extends Component {
     }
         render() {
         const {data} = this.state
-        return <ChatPage
-            sendFn={this.sendMessage}
-            sendImageMessagesFn={this.sendImageMessagesFn}
-            messages={data}
-            myNameShow={false}
-            userNameShow={true}
-            myId={"0000"}         //我的id 用户id
+        return <View style={{flex:1}}>
+            <ChatPage
+                sendFn={this.sendMessage}
+                sendImageMessagesFn={this.sendImageMessagesFn}
+                messages={data}
+                myNameShow={false}
+                userNameShow={true}
+                myId={"000"}         //我的id 用户id
 
-        />
+            />
+        </View>
     }
 }

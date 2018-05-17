@@ -87,7 +87,7 @@ export default class Footer extends Component {
     }
 
     _onFocus = () => {
-        this.refs.MessageTools.resetButton()
+         this.refs.MessageTools.resetButton()
     }
 
     render() {
@@ -95,13 +95,9 @@ export default class Footer extends Component {
         const {sendPress, textInputStyle, textInputProps, animation,showMessageTool} = this.props
         return (
             <KeyboardAvoidingView
-                behavior={Platform.select({
-                    android: 'padding',
-                    ios: 'position'
-                })}
-
+                behavior={'position'}
             >
-                <View>
+
                     <View style={[styles.container]}
                     >
                         <InputTool
@@ -132,7 +128,7 @@ export default class Footer extends Component {
                         messageTools={this.messageTools}
                         showMessageTool={showMessageTool}
                     />
-                </View>
+
             </KeyboardAvoidingView>
         )
     }

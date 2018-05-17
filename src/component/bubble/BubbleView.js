@@ -84,7 +84,7 @@ export default class BubbleView extends Component {
 
         return (
             <View  {...this._panResponder.panHandlers} style={[styles.container, position ?
-                {paddingRight: paddingNum} : {paddingLeft: paddingNum}]}>
+                {justifyContent: 'flex-end',paddingRight: paddingNum} : {justifyContent: 'flex-start',paddingLeft: paddingNum}]}>
                 {position && this._showMessageStateView(messageState)}
                 {images && (imageBubbleFn ? imageBubbleFn(images) :
                     <ImageBubble {...this.props} showDialogFn={this._showDialogPopFn}/>)}

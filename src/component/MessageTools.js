@@ -4,7 +4,8 @@ import {
     Image,
     TouchableOpacity,
     StyleSheet,
-    Keyboard
+    Keyboard,
+    Platform
 } from 'react-native';
 import ToolsButton from './ToolsButton';
 import AnimationContainer from './AnimationContainer';
@@ -15,7 +16,7 @@ export default class MessageTools extends Component {
         super()
         this.state = {
             onPressType: 0,
-            messageToolView: null
+            messageToolView: null,
         }
         this.type=0
         this.isExecute=false
@@ -67,12 +68,16 @@ export default class MessageTools extends Component {
         }
 
 
-
-
         this.isExecute=false
     }
-    _keyboardDidShow=()=>{
+
+    _keyboardDidShow=(e)=>{
+        const {fixHeight}=this.props
         this.isShow=true
+        if(fixHeight){
+            return
+        }
+        this.messageToolHeight=e.endCoordinates.height
     }
     _keyboardDidHide=()=>{
         this.isShow=false
@@ -80,17 +85,26 @@ export default class MessageTools extends Component {
             return
         }
 
-        this.showMessageTool()
+        Platform.OS=='android'&&this.showMessageTool()
 
 
 
     }
-    _keyboardWillShow = () => {
+    _keyboardWillShow = (e) => {
+        this.duration=e.duration
+
          this.resetButton()
     }
+
     _keyboardWillHide=()=>{
-        this.isExecute=false
+        console.log('hahahahha')
+        this.isShow=false
+        if(!this.isExecute){
+            return
+        }
+
         this.showMessageTool()
+
     }
     componentWillMount() {
         this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
@@ -114,8 +128,7 @@ export default class MessageTools extends Component {
 
     render() {
         const {onPressType, messageToolView} = this.state
-        const {animation, messageTools} = this.props
-
+        let {animation, messageTools} = this.props
         return (
             <View>
                 <View style={styles.container}>

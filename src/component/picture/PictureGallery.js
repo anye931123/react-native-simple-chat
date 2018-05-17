@@ -31,6 +31,7 @@ export default class PictureGallery extends Component {
         this.state = {
             selectImages: new Set(),
         }
+        this.pictureToolHeight=0
     }
 
 
@@ -52,7 +53,8 @@ export default class PictureGallery extends Component {
         let {selectImages} = this.state
         const {checkImageFn,
             galleryItemImageStyle,
-            selectCircleButtonStyle}=this.props
+            selectCircleButtonStyle,
+        }=this.props
         return <PictureItem
             imagesTotal={data}
             imageIndex={index}
@@ -65,6 +67,10 @@ export default class PictureGallery extends Component {
 
         />
 
+    }
+
+    getPictureLayout=({height})=>{
+        this.pictureToolHeight=height
     }
 
     render() {
@@ -80,6 +86,7 @@ export default class PictureGallery extends Component {
                 showsHorizontalScrollIndicator={false}
             />
             {showToolBar&&<PictureToolBar
+                getLayoutMsg={this.getPictureLayout}
                 gotoAlbumFn={() => {}}
                 selectImages={selectImages}
                 sendImageMessagesFn={sendImageMessagesFn}

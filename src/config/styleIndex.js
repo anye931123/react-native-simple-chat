@@ -34,23 +34,25 @@ const layoutAnimationConfigs = [
     animations.layout.spring,
     animations.layout.easeInEaseOut,
 ];
+
+
 export const QQStyle = {
     chatStyle:{flex:1, backgroundColor:Colors.bg},
-    animation: layoutAnimationConfigs[0],
+    animation: layoutAnimationConfigs[1],
     messageContainerStyle:{
       paddingTop:10,
     },
     leftAvatarStyle: {
         imageAvatarStyle: {
-            width:50,
-            height:50,
-            borderRadius:5
+            width:40,
+            height:40,
+            borderRadius:20
         },
         textAvatarStyle: {},
         textAvatarContainerStyle: {
-            width:50,
-            height:50,
-            borderRadius:5,
+            width:40,
+            height:40,
+            borderRadius:20,
             backgroundColor:Colors.blue
         }
 
@@ -59,6 +61,9 @@ export const QQStyle = {
         imageAvatarStyle: {},
         textAvatarStyle: {},
         textAvatarContainerStyle: {
+            width:40,
+            height:40,
+            borderRadius:20,
             backgroundColor:Colors.blue
         }
 
@@ -126,8 +131,14 @@ export const QQStyle = {
 
     },
     pictureGalleryStyle:{
-        galleryContainerStyle:[styles.container,{alignItems:'flex-start',width:windowWidth}],
-        galleryItemImageStyle:{resizeMode: 'cover',height:156, width:80,},
+        galleryContainerStyle:[
+            styles.container,
+            {alignItems:'flex-start',width:windowWidth}
+            ],
+        galleryItemImageStyle:{
+            resizeMode: 'cover',
+            height:170,
+            width:80,},
         selectCircleButtonStyle:{
             selectCircleContainerStyle:{
                 position:'absolute',
