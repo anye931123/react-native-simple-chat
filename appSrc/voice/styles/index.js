@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native'
-import Colors from "../../../utils/Colors";
-import {windowWidth} from '../../../utils/utils'
+import Colors from "../../../src/utils/Colors";
+import {windowWidth} from '../../../src/utils/utils'
 
 export const stylesVoice = StyleSheet.create({
 

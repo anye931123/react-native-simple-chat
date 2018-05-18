@@ -1,20 +1,9 @@
 import React, {Component} from 'react';
-import {
-    View,
-    StyleSheet,
-    KeyboardAvoidingView,
-    Platform,
-    TouchableOpacity,
-} from 'react-native';
+import {KeyboardAvoidingView, View,} from 'react-native';
 import _ from 'lodash';
-
-import Colors from '../utils/Colors';
 import InputTool from './InputTool';
 import Send from './Send';
 import MessageTools from './MessageTools';
-import * as imgs from "../images";
-import PictureGallery from './picture/PictureGallery'
-import VoiceOne from './voice/VoiceOne'
 
 
 export default class Footer extends Component {
@@ -23,59 +12,7 @@ export default class Footer extends Component {
         this.state = {
             message: '',
         }
-        this.messageTools = [{
-            normalIcon: imgs.voice,
-            selectedIcon: imgs.voiceSelect,
-            messageToolView: <VoiceOne
-                onVoicePressIn={() => {
-                    console.log('voiceIn')
-                }}
-                onVoicePressOut={() => {
-                    console.log("voiceOut")
-                }}
-            />
-        },
 
-            {
-                normalIcon: imgs.picture,
-                selectedIcon: imgs.pictureSelect,
-                messageToolView: <PictureGallery
-                    sendImageMessagesFn={props.sendImageMessagesFn}
-                    checkImageFn={props.checkImageFn}
-                    showToolBar={true}
-                    {...props.pictureGalleryStyle}
-                />
-            },
-            {
-                normalIcon: imgs.camera,
-                selectedIcon: imgs.cameraSelect,
-
-            },
-            {
-                normalIcon: imgs.emoticon,
-                selectedIcon: imgs.emoticonSelect,
-                messageToolView: <VoiceOne
-                    onVoicePressIn={() => {
-                        console.log('voiceIn')
-                    }}
-                    onVoicePressOut={() => {
-                        console.log("voiceOut")
-                    }}
-                />
-            },
-            {
-                normalIcon: imgs.add,
-                selectedIcon: imgs.addSelect,
-                messageToolView: <VoiceOne
-                    onVoicePressIn={() => {
-                        console.log('voiceIn')
-                    }}
-                    onVoicePressOut={() => {
-                        console.log("voiceOut")
-                    }}
-                />
-            }
-        ]
     }
 
 
@@ -87,59 +24,53 @@ export default class Footer extends Component {
     }
 
     _onFocus = () => {
-         this.refs.MessageTools.resetButton()
+        this.refs.MessageTools.resetButton()
     }
 
     render() {
         const {message} = this.state
-        const {sendPress, textInputStyle, textInputProps, animation,showMessageTool} = this.props
+        const {sendMessageFn, textInputProps, animation, showMessageTool, footerStyle = {},messageTools} = this.props
+        const {footerContainer,textInputStyle, sendStyle, sendTextStyle,sendUnPressStyle,messageToolContainerStyle} = footerStyle
         return (
             <KeyboardAvoidingView
                 behavior={'position'}
             >
+                <View style={footerContainer}>
+                    <InputTool
+                        onTextChanged={this._onChangedText}
+                        onInputSizeChanged={() => {
+                        }}
+                        multiline={true}
+                        text={message}
+                        textInputStyle={textInputStyle}
+                        textInputProps={_.assign({onFocus: this._onFocus}, textInputProps)}
 
-                    <View style={[styles.container]}
-                    >
-                        <InputTool
-                            onTextChanged={this._onChangedText}
-                            onInputSizeChanged={() => {
-                            }}
-                            multiline={true}
-                            text={message}
-                            textInputStyle={[textInputStyle, {maxHeight: 124}]}
-                            textInputProps={_.assign({onFocus:this._onFocus},textInputProps)}
-
-                        />
-                        <Send
-                            sendPress={() => {
-                                sendPress(message)
-                                this.setState({
-                                    message: '',
-                                    layoutStatus: false
-                                })
-
-                            }}
-                            sendStatus={!_.isEmpty(message)}
-                        />
-                    </View>
-                    <MessageTools
-                        ref={'MessageTools'}
-                        animation={animation}
-                        messageTools={this.messageTools}
-                        showMessageTool={showMessageTool}
                     />
+                    <Send
+                        sendStyle={sendStyle}
+                        sendTextStyle={sendTextStyle}
+                        sendUnPressStyle={sendUnPressStyle}
+                        sendPress={() => {
+                            sendMessageFn&&sendMessageFn(message)
+                            this.setState({
+                                message: '',
+                                layoutStatus: false
+                            })
+
+                        }}
+                        sendStatus={!_.isEmpty(message)}
+                    />
+                </View>
+                <MessageTools
+                    ref={'MessageTools'}
+                    animation={animation}
+                    messageTools={messageTools}
+                    showMessageTool={showMessageTool}
+                    messageToolContainerStyle={messageToolContainerStyle}
+                />
 
             </KeyboardAvoidingView>
         )
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        alignItems: 'flex-end',
-        padding: 7,
-        backgroundColor: Colors.bg
-    },
-
-})

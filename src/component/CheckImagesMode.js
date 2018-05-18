@@ -1,15 +1,8 @@
 import React, {Component} from 'react';
-import {
-    View,
-    Modal,
-    StyleSheet,
-    TouchableWithoutFeedback,
-} from 'react-native'
+import {Modal, StyleSheet, TouchableWithoutFeedback, View,} from 'react-native'
 import ImageView from '../widget/ImageView'
 import Swiper from 'react-native-swiper';
 import _ from 'lodash'
-
-import PictureToolBar from './picture/PictureToolBar'
 import Colors from "../utils/Colors";
 import {windowHeight, windowWidth} from "../utils/utils";
 
@@ -21,22 +14,21 @@ export default class CheckImagesMode extends Component {
             modalVisible: false,
             images: [],
             index: 0,
-            toolBarShow: false
         }
     }
 
-    setModalVisible = (visible, images, index, toolBarShow) => {
+    setModalVisible = (visible, images, index) => {
 
         this.setState({
             modalVisible: visible,
             images: images ? images : [],
             index: index ? index : 0,
-            toolBarShow: toolBarShow
         });
     }
 
     render() {
-        const {images, index, modalVisible, toolBarShow} = this.state
+        const {images, index, modalVisible} = this.state
+        console.log(images)
         return (
             <Modal
                 animationType={'none'}
@@ -71,10 +63,6 @@ export default class CheckImagesMode extends Component {
                                 </View>
                             )}
                         </Swiper>}
-                        {toolBarShow && <PictureToolBar
-                            selectImages={new Set()}
-                            toolBarShow={true}
-                        />}
                     </View>
                 </TouchableWithoutFeedback>
             </Modal>

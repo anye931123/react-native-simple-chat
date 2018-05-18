@@ -1,11 +1,6 @@
 import React, {PureComponent} from 'react';
 
-import {
-    TouchableOpacity,
-    Image,
-    View,
-    StyleSheet
-} from 'react-native'
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native'
 
 export default class ToolsButton extends PureComponent {
 

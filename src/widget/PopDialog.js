@@ -1,29 +1,23 @@
 import React, {PureComponent} from 'react'
-import {
-    View,
-    StyleSheet,
-
-} from 'react-native';
+import {StyleSheet, View,} from 'react-native';
 import Colors from '../utils/Colors'
-import {windowHeight, windowWidth} from '../utils/utils'
+import {windowWidth} from '../utils/utils'
 import ModeView from './ModeView'
-import _ from 'lodash'
-import PopDialogButton from './PopDialogButton'
+
 
 export default class PopDialog extends PureComponent {
 
 
     render() {
-        const {popStyle, showDialogPopFn, triangleStyle, visible, PopDialogConfig, popDialogContainerStyle={},PopDialogButtonStyle} = this.props
+        const {popStyle, showDialogPopFn, triangleStyle,popToolButtons, visible, popDialogStyle={}} = this.props
 
         let pageX = triangleStyle.left
         let widthOffset = windowWidth - pageX
-        let btnNum = PopDialogConfig.length
+        let btnNum = popToolButtons.length
         let btnContainerWidth = btnNum * 45
 
         let position = {}
         if (widthOffset > btnContainerWidth) {
-            console.log('position1')
             if (pageX >= btnContainerWidth) {
                 position = {marginLeft: pageX - btnContainerWidth / 2 + 2}
             } else {
@@ -41,17 +35,11 @@ export default class PopDialog extends PureComponent {
             <ModeView style={styles.container} visible={visible} modePress={() => showDialogPopFn(false)}>
                 <View style={[styles.popContainer, popStyle, {top: popStyle.top - 40}]}>
 
-                    <View style={[styles.btnContainer,popDialogContainerStyle, {width: btnContainerWidth}, position]}>
-                        {_.map(PopDialogConfig, (value, index) => <PopDialogButton
-                            style={PopDialogButtonStyle}
-                            key={index}
-                            icon={value.icon}
-                            onPress={value.onPress}
-                            text={value.text}
-                        />)}
+                    <View style={[styles.btnContainer,popDialogStyle, {width: btnContainerWidth}, position]}>
+                        {popToolButtons}
                     </View>
 
-                    <View style={[styles.triangle,{backgroundColor: popDialogContainerStyle.backgroundColor||Colors.black,}, triangleStyle,{left: triangleStyle.left - 3}]}/>
+                    <View style={[styles.triangle,{backgroundColor: popDialogStyle.backgroundColor||Colors.black,}, triangleStyle,{left: triangleStyle.left - 3}]}/>
                 </View>
             </ModeView>
 
@@ -84,7 +72,6 @@ const styles = StyleSheet.create({
         btnContainer: {
 
             flexDirection: 'row',
-            height: 35,
             backgroundColor: Colors.black,
             borderRadius: 4
 

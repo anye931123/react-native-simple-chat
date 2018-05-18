@@ -1,13 +1,8 @@
 import React, {Component} from 'react';
-import {
-    View,
-    Text,
-    TouchableOpacity,
-    StyleSheet
-} from 'react-native';
-import Colors from "../../utils/Colors";
+import {Text, TouchableOpacity, View} from 'react-native';
+import Colors from "../../src/utils/Colors";
 import {styles} from './styles/pictureToolBar'
-import SelectCircleButton from '../../widget/SelectCircleButton'
+import SelectCircleButton from '../../src/widget/SelectCircleButton'
 
 export default class PictureToolBar extends Component {
 
@@ -74,7 +69,7 @@ export default class PictureToolBar extends Component {
                     <TouchableOpacity
                         style={[styles.sendBtn, (toolBarShow || sendBtnState) && {backgroundColor: Colors.blue},]}
                         onPress={() => {
-                            sendBtnState && sendImageMessagesFn(Array.from(selectImages))
+                            sendBtnState&&sendImageMessagesFn&& sendImageMessagesFn(Array.from(selectImages))
                             this.setState({
                                 selectImages: selectImages.clear()
                             })

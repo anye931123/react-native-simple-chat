@@ -1,11 +1,5 @@
-import React,{PureComponent} from 'react';
-import {
-    View,
-    TouchableOpacity,
-    Image,
-    Text,
-    StyleSheet
-} from 'react-native'
+import React, {PureComponent} from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import ImageView from "./ImageView";
 import Colors from "../utils/Colors";
 

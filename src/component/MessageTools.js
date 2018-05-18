@@ -1,13 +1,9 @@
 import React, {Component} from "react";
-import {
-    View,
-    StyleSheet,
-    Keyboard,
-    Platform
-} from 'react-native';
+import {Keyboard, Platform, StyleSheet, View} from 'react-native';
 import ToolsButton from './ToolsButton';
 import AnimationContainer from './AnimationContainer';
 import _ from 'lodash';
+
 export default class MessageTools extends Component {
 
     constructor() {
@@ -116,10 +112,10 @@ export default class MessageTools extends Component {
 
     render() {
         const {onPressType, messageToolView} = this.state
-        let {animation, messageTools} = this.props
+        let {animation, messageTools,messageToolContainerStyle} = this.props
         return (
             <View>
-                <View style={styles.container}>
+                <View style={messageToolContainerStyle}>
                     {_.map(messageTools,
                         (value, index) => <ToolsButton key={index}
                                                        {...value}
@@ -137,15 +133,3 @@ export default class MessageTools extends Component {
     }
 
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        paddingTop: 3,
-        paddingBottom: 5
-    },
-    toolBtn: {
-        flex: 1
-    }
-
-})

@@ -1,13 +1,8 @@
 import React, {PureComponent} from 'react';
-import {
-    View,
-    StyleSheet,
-    Text,
-    Dimensions,
-    TouchableOpacity
-} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 
 import PureText from './textBubble/PureText'
+
 export default class TextBubble extends PureComponent {
 
     render() {
@@ -16,7 +11,7 @@ export default class TextBubble extends PureComponent {
 
 
         return (
-            <TouchableOpacity style={{padding:2}}  onLongPress={()=>showDialogFn(messageData)}>
+            <TouchableOpacity activeOpacity={0.8} style={{padding:2}}  onLongPress={()=>showDialogFn(messageData)}>
             <PureText {...this.props}/>
             </TouchableOpacity>
         )

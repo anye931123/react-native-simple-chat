@@ -1,10 +1,5 @@
-import React,{PureComponent} from 'react'
-import {
-    TouchableOpacity,
-    Text,
-    StyleSheet
-} from 'react-native'
-import Colors from "../utils/Colors";
+import React, {PureComponent} from 'react'
+import {StyleSheet, Text, TouchableOpacity} from 'react-native'
 
 export default class WarningView extends PureComponent{
 

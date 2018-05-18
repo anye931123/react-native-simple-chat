@@ -1,12 +1,8 @@
 import React, {PureComponent} from 'react';
-import {
-    View,
-    TextInput,
-    StyleSheet,
-    Platform
-} from 'react-native';
+import {Platform, StyleSheet, TextInput} from 'react-native';
 
 import Colors from '../utils/Colors';
+
 export default class InputTool extends PureComponent {
 
     constructor() {

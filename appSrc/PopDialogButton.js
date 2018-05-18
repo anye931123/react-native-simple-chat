@@ -1,13 +1,7 @@
-import React,{PureComponent} from 'react';
-import {
-    View,
-    TouchableOpacity,
-    Image,
-    Text,
-    StyleSheet
-} from 'react-native'
-import ImageView from "./ImageView";
-import Colors from "../utils/Colors";
+import React, {PureComponent} from 'react';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native'
+import ImageView from "../src/widget/ImageView";
+import Colors from "../src/utils/Colors";
 
 export default class DialogPopButton extends PureComponent{
 

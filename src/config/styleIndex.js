@@ -1,7 +1,5 @@
 import {LayoutAnimation} from "react-native";
 import Colors from "../utils/Colors";
-import {styles} from '../styles/messageButtomTool'
-import {windowWidth} from '../utils/utils'
 
 const animations = {
     layout: {
@@ -21,7 +19,7 @@ const animations = {
             duration: 300,
             create: {
                 type: LayoutAnimation.Types.easeInEaseOut,
-                property: LayoutAnimation.Properties.scaleXY,
+                property: LayoutAnimation.Properties.opacity,
             },
             update: {
                 delay: 100,
@@ -126,49 +124,27 @@ export const QQStyle = {
         },
         timeTextStyle: {}
     },
-    popDialogStyle:{
-        popDialogContainerStyle:{}
+    popDialogStyle:{},
+    footerStyle: {
+        footerContainer:{
+            flexDirection: 'row',
+            alignItems: 'flex-end',
+            padding: 7,
+            backgroundColor: Colors.bg
+        },
+        textInputStyle:{
+            maxHeight: 124,
+        },
+        sendPressStyle:{
 
-    },
-    pictureGalleryStyle:{
-        galleryContainerStyle:[
-            styles.container,
-            {alignItems:'flex-start',width:windowWidth}
-            ],
-        galleryItemImageStyle:{
-            resizeMode: 'cover',
-            height:170,
-            width:80,},
-        selectCircleButtonStyle:{
-            selectCircleContainerStyle:{
-                position:'absolute',
-                top:4,
-                right:4,
-            },
-            commonStyle:{
+        },
+        sendUnPressStyle:{backgroundColor:Colors.gray},
+        sendTextStyle:{
 
-                alignItems: 'center',
-                marginRight: 5,
-                marginLeft: 5,
-                borderWidth: 1,
-                justifyContent: 'center',
-                width: 17,
-                height: 17,
-                borderRadius: 8.5
-            },
-            selectedFalseStyle: {
-                borderColor: Colors.gray,
-            },
-            selectedTrueStyle:{
-                borderColor: Colors.blue,
-                backgroundColor: Colors.blue
-            },
-            textStyle:{fontSize:12,
-                color:Colors.white}
-        }
+        },
+        messageToolContainerStyle:{}
 
-    },
-    footer: {}
+    }
 }
 
 

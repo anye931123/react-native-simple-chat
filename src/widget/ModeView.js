@@ -1,9 +1,5 @@
-import React,{Component} from 'react'
-import {
-    Modal,
-    TouchableWithoutFeedback,
-    View,
-} from 'react-native'
+import React, {Component} from 'react'
+import {Modal, TouchableWithoutFeedback, View,} from 'react-native'
 
 export default class ModeView extends Component{
 

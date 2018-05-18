@@ -1,9 +1,5 @@
 import React, {PureComponent} from 'react'
-import {
-    View,
-    Text,
-    StyleSheet
-} from 'react-native'
+import {StyleSheet, Text, View} from 'react-native'
 import Colors from "../utils/Colors";
 
 export default class RankAndName extends PureComponent {

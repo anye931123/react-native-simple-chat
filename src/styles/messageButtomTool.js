@@ -1,8 +1,6 @@
-import {
-    StyleSheet,
-    Dimensions
-} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import Colors from '../utils/Colors'
+
 export const styles=StyleSheet.create({
     container:{
         justifyContent:'center',

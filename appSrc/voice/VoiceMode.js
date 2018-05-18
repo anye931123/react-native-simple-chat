@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 
-import ModeView from '../../widget/ModeView'
-import {stylesVoice} from './styles'
-
-import Swiper from 'react-native-swiper';
+import ModeView from '../../src/widget/ModeView'
+import {stylesVoice} from './styles/index'
 import VoiceView from './VoiceView'
+
 export default class VoiceMode extends Component {
 
 

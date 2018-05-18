@@ -1,9 +1,7 @@
-import React,{PureComponent} from 'react';
+import React, {PureComponent} from 'react';
 
-import {
-    Image
-} from 'react-native';
-import {getImageSource,windowWidth} from "../utils/utils";
+import {Image} from 'react-native';
+import {getImageSource, windowWidth} from "../utils/utils";
 
 export default class ImageView extends  PureComponent{
 

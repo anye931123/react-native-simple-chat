@@ -1,15 +1,6 @@
 import React, {Component} from 'react';
-import {
-    View,
-    StyleSheet,
-    Text,
-    Dimensions,
-    PanResponder,
-    ActivityIndicator
-} from 'react-native';
+import {ActivityIndicator, Dimensions, PanResponder, StyleSheet, View} from 'react-native';
 import Colors from '../../utils/Colors'
-import ImageView from "../../widget/ImageView";
-import _ from 'lodash'
 import TextBubble from './TextBubble';
 import ImageBubble from './ImageBubble';
 import Warning from '../../widget/WarningView'
@@ -36,9 +27,9 @@ export default class BubbleView extends Component {
     }
 
     _showDialogPopFn = (message) => {
-        const {showDialogPopFn} = this.props
+        const {showDialogPopFn,rowId} = this.props
         if (showDialogPopFn) {
-            showDialogPopFn(message, this.gestureXY.x, this.gestureXY.y)
+            showDialogPopFn(message,rowId, this.gestureXY.x, this.gestureXY.y)
         }
     }
 

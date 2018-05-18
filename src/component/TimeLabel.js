@@ -1,12 +1,9 @@
-import React,{PureComponent} from 'react'
-import {
-    View,
-    Text,
-    StyleSheet
-} from 'react-native'
+import React, {PureComponent} from 'react'
+import {StyleSheet, Text, View} from 'react-native'
 
-import  moment from 'moment'
+import moment from 'moment'
 import Colors from '../utils/Colors'
+
 moment.locale('zh-cn', {
     meridiem : function (hour, minute, isLowercase) {
         if (hour < 9) {

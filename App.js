@@ -1,8 +1,55 @@
 import React, {Component} from 'react';
-import {
-    View
-} from 'react-native'
-import {ChatPage} from './src';
+import {View} from 'react-native'
+import {ChatPage,CheckImagesMode} from './src';
+import * as imgs from "./appSrc/images";
+import PopDialogButton from "./appSrc/PopDialogButton";
+import _ from 'lodash'
+import VoiceOne from "./appSrc/voice/VoiceOne";
+import PictureGallery from "./appSrc/picture/PictureGallery";
+import {windowWidth} from "./src/utils/utils";
+import {styles} from "./src/styles/messageButtomTool";
+import Colors from "./src/utils/Colors";
+
+let DIALOG_POP_CONFIG = [{
+    icon: imgs.copy,
+    text: "复制",
+    onPress: () => {
+        const {messageData}=this.props
+    }
+},
+    {
+        icon: imgs.transpond,
+        text: "转发",
+        onPress: () => {
+        }
+    },
+    {
+        icon: imgs.collect,
+        text: "收藏",
+        onPress: () => {
+        }
+    },
+    {
+        icon: imgs.recall,
+        text: "撤回",
+        onPress: () => {
+        }
+    },
+    {
+        icon: imgs.deleteIcon,
+        text: "删除",
+        onPress: () => {
+        }
+    },
+    {
+        icon: imgs.multipleChoice,
+        text: "多选",
+        onPress: () => {
+        }
+    }
+]
+
+
 export default class App extends Component {
 
     constructor(props) {
@@ -14,6 +61,97 @@ export default class App extends Component {
         this.ws = new WebSocket("ws://192.168.1.165:8088")
 
         this.wsStatus = false
+
+        this.messageTools = [{
+            normalIcon: imgs.voice,
+            selectedIcon: imgs.voiceSelect,
+            messageToolView: <VoiceOne
+                onVoicePressIn={() => {
+                    console.log('voiceIn')
+                }}
+                onVoicePressOut={() => {
+                    console.log("voiceOut")
+                }}
+            />
+        },
+
+            {
+                normalIcon: imgs.picture,
+                selectedIcon: imgs.pictureSelect,
+                messageToolView: <PictureGallery
+                    sendImageMessagesFn={this.sendImageMessagesFn}
+                    checkImageFn={this._checkImageFn}
+                    showToolBar={true}
+                    {...{
+                        galleryContainerStyle:[
+                        styles.container,
+                    {alignItems:'flex-start',width:windowWidth}
+                        ],
+                        galleryItemImageStyle:{
+                        resizeMode: 'cover',
+                        height:170,
+                        width:80,},
+                        selectCircleButtonStyle:{
+                        selectCircleContainerStyle:{
+                        position:'absolute',
+                        top:4,
+                        right:4,
+                    },
+                        commonStyle:{
+
+                        alignItems: 'center',
+                        marginRight: 5,
+                        marginLeft: 5,
+                        borderWidth: 1,
+                        justifyContent: 'center',
+                        width: 17,
+                        height: 17,
+                        borderRadius: 8.5
+                    },
+                        selectedFalseStyle: {
+                        borderColor: Colors.gray,
+                    },
+                        selectedTrueStyle:{
+                        borderColor: Colors.blue,
+                        backgroundColor: Colors.blue
+                    },
+                        textStyle:{fontSize:12,
+                        color:Colors.white}
+                    }
+
+                    }}
+                />
+            },
+            {
+                normalIcon: imgs.camera,
+                selectedIcon: imgs.cameraSelect,
+
+            },
+            {
+                normalIcon: imgs.emoticon,
+                selectedIcon: imgs.emoticonSelect,
+                messageToolView: <VoiceOne
+                    onVoicePressIn={() => {
+                        console.log('voiceIn')
+                    }}
+                    onVoicePressOut={() => {
+                        console.log("voiceOut")
+                    }}
+                />
+            },
+            {
+                normalIcon: imgs.add,
+                selectedIcon: imgs.addSelect,
+                messageToolView: <VoiceOne
+                    onVoicePressIn={() => {
+                        console.log('voiceIn')
+                    }}
+                    onVoicePressOut={() => {
+                        console.log("voiceOut")
+                    }}
+                />
+            }
+        ]
     }
 
 
@@ -79,6 +217,10 @@ export default class App extends Component {
             this.ws.send(JSON.stringify( myMessage))
          }
     }
+    _checkImageFn = (images, index) => {
+
+        this.refs.CheckImagesMode.setModalVisible(true, images, index)
+    }
 
     sendImageMessagesFn=(images)=>{
         const {data} = this.state
@@ -104,8 +246,26 @@ export default class App extends Component {
             <ChatPage
                 styleType={'QQ'}
                 style={{
-
+                    popDialogStyle:{
+                        paddingTop:4,
+                        paddingBottom:4
+                    },
+                    footerStyle:{
+                        messageToolContainerStyle:{
+                            flexDirection: 'row',
+                            paddingTop: 3,
+                            paddingBottom: 5
+                        }
+                    }
                 }}
+                popToolButtons={_.map(DIALOG_POP_CONFIG, (value, index) => <PopDialogButton
+                    key={index}
+                    icon={value.icon}
+                    onPress={value.onPress}
+                    text={value.text}
+                />)}
+                messageTools={this.messageTools}
+                onPopToolShowFn={(message,rowId)=>{console.log("哈哈哈哈哈哈》》》",message,rowId)}}
                 sendFn={this.sendMessage}
                 sendImageMessagesFn={this.sendImageMessagesFn}
                 messages={data}
@@ -115,6 +275,7 @@ export default class App extends Component {
                 inverted={true}
 
             />
+            <CheckImagesMode ref={'CheckImagesMode'}/>
         </View>
     }
 }

@@ -1,14 +1,11 @@
 import React, {PureComponent} from 'react'
-import {
-    View,
-    StyleSheet,
-
-} from 'react-native';
+import {StyleSheet, View,} from 'react-native';
 import Colors from '../utils/Colors'
-import {windowHeight, windowWidth} from '../utils/utils'
+import {windowWidth} from '../utils/utils'
 import ModeView from './ModeView'
 import _ from 'lodash'
 import DialogPopButton from './DialogPopButton'
+
 export default class DialogPop extends PureComponent {
 
 

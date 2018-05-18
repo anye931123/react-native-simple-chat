@@ -1,5 +1,5 @@
-
 import {QQStyle} from './styleIndex'
+
 export const MAXWIDTH=250
 
 export const messageStates={

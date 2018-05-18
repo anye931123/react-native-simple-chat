@@ -1,5 +1,5 @@
-
 import {Dimensions} from 'react-native'
+
 export const getImageSource=(data)=>{
 
     let source = null

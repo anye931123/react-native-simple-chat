@@ -1,15 +1,9 @@
 import React, {PureComponent} from 'react';
 
-import {
-    View,
-    Image,
-    StyleSheet,
-    TouchableOpacity,
-    Text
-} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Colors from '../utils/Colors'
 import ImageView from '../widget/ImageView'
-import {avatarDefault} from "../images"
+
 type avatarStyle={
     imageAvatarStyle:Object,
     textAvatarStyle:Object,
@@ -43,11 +37,6 @@ export default class Avatar extends PureComponent {
                     {userName.substr(userName.length - 1, 1)}
                 </Text>
             </View>)
-        }else {
-            return <ImageView
-                source={avatarDefault}
-                style={[styles.avatarStyle,imageAvatarStyle]}
-            />
         }
     }
 

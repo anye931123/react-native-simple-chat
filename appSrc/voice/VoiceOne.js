@@ -1,18 +1,11 @@
 import React, {Component} from 'react';
 
-import {
-    View,
-    TouchableOpacity,
-    Image,
-    StyleSheet,
-    Text,
-
-} from 'react-native';
-import {styles} from '../../styles/messageButtomTool'
-import * as imgs from '../../images'
-import Colors from '../../utils/Colors';
-import {stylesVoice} from './styles'
+import {Image, Text, TouchableOpacity, View,} from 'react-native';
+import {styles} from '../../src/styles/messageButtomTool'
+import * as imgs from '../images/index'
+import {stylesVoice} from './styles/index'
 import VoiceMode from './VoiceMode'
+
 export default class VoiceOne extends Component {
 
     constructor() {
@@ -49,6 +42,7 @@ export default class VoiceOne extends Component {
                     onPress={this._showMode}
                     onLongPress={this._showMode}
                     delayLongPress={0}
+
                 >
                     <Image source={imgs.voiceButton} style={stylesVoice.image}/>
                 </TouchableOpacity>

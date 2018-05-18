@@ -1,12 +1,5 @@
 import React, {Component} from 'react';
-import {
-    View,
-    StyleSheet,
-    Text,
-    Dimensions,
-    TouchableOpacity,
-    ScrollView
-} from 'react-native';
+import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import ImageView from "../../widget/ImageView";
 import _ from 'lodash'
 import {MAXWIDTH} from '../../config'

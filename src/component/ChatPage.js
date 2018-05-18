@@ -1,68 +1,20 @@
 import React, {Component} from 'react';
-import {
-    View,
-    ListView,
-    Keyboard,
-    Animated,
-    Platform
-} from 'react-native';
-
-import {styles} from '../styles/chatStyle';
+import {Keyboard, Platform, View} from 'react-native';
 import Footer from './Footer';
 import Message from './Message';
-
-import * as imgs from '../images';
 import CheckImagesMode from './CheckImagesMode'
 import PopDialog from '../widget/PopDialog'
 import FlatListView from '../widget/FlatListView';
 import _ from 'lodash'
 import {STYLES} from '../config'
 
-let DIALOG_POP_CONFIG = [{
-    icon: imgs.copy,
-    text: "复制",
-    onPress: () => {
-    }
-},
-    {
-        icon: imgs.transpond,
-        text: "转发",
-        onPress: () => {
-        }
-    },
-    {
-        icon: imgs.collect,
-        text: "收藏",
-        onPress: () => {
-        }
-    },
-    {
-        icon: imgs.recall,
-        text: "撤回",
-        onPress: () => {
-        }
-    },
-    {
-        icon: imgs.deleteIcon,
-        text: "删除",
-        onPress: () => {
-        }
-    },
-    {
-        icon: imgs.multipleChoice,
-        text: "多选",
-        onPress: () => {
-        }
-    }
-]
+
 let messagesAddress = new Set()
 export default class ChatPage extends Component {
 
     constructor(props) {
         super(props)
-
         this.selectStyle=props.styleType&&STYLES[props.styleType]?STYLES[props.styleType]:STYLES['QQ']
-        console.log(props)
         this.globalStyle=_.defaultsDeep(props.style,this.selectStyle)
         this.state = {
             keyboardHeight: 0,
@@ -70,7 +22,9 @@ export default class ChatPage extends Component {
             dialogY: 0,
             dialogX: 0,
             isMessageToolShow:0,
-            messages:props.messages
+            messages:props.messages,
+            rowId:undefined,
+            message:undefined
         }
     }
 
@@ -121,14 +75,22 @@ export default class ChatPage extends Component {
 
 
 
-    showPopDialog = (message, x, y) => {
+    showPopDialog = (message,rowId, x, y) => {
+        const {popToolButtons,onPopToolShowFn}=this.props
+        if(!popToolButtons||popToolButtons.length==0){
+            return
+        }
         if (message) {
             this.setState({
                 dialogY: y,
                 dialogX: x,
-                visible: true
+                visible: true,
+
+
 
             })
+
+            onPopToolShowFn&&onPopToolShowFn( message, rowId)
         } else {
             this.setState({
                 visible: false
@@ -143,8 +105,6 @@ export default class ChatPage extends Component {
             myNameShow,  //是否显示自己的名字
             userNameShow,  //是否显示别人的名字
             myId,          //我的id 用户id
-            timeStyle,         //时间标签容器样式
-            timeTextStyle      //时间标签字体样式
         } = this.props
         let messagesLength = messages.length
         let rowAddress = 1 + parseInt(index)
@@ -159,6 +119,7 @@ export default class ChatPage extends Component {
             {...this.globalStyle}
             data={item}
             myId={myId}
+            rowId={index}
             timeShow={timeShow}
             myNameShow={myNameShow}
             userNameShow={userNameShow}
@@ -169,9 +130,9 @@ export default class ChatPage extends Component {
     }
 
 
-    _checkImageFn = (showToolBar, images, index) => {
+    _checkImageFn = (images, index) => {
 
-        this.refs.CheckImagesMode.setModalVisible(true, images, index, showToolBar)
+        this.refs.CheckImagesMode.setModalVisible(true, images, index)
     }
 
     sendPress = (message) => {
@@ -201,12 +162,10 @@ export default class ChatPage extends Component {
 
     render() {
         const {
-
-            textInputStyle,
             textInputProps,
-            sendImageMessagesFn,
             inverted=true,
-            style
+            popToolButtons,
+            messageTools
         } = this.props
 
 
@@ -216,7 +175,9 @@ export default class ChatPage extends Component {
             dialogY,
             visible,
             isMessageToolShow,
-            messages
+            messages,
+            message,
+            rowId
         } = this.state
 
         return (
@@ -238,12 +199,10 @@ export default class ChatPage extends Component {
                 }}>
                     <Footer
                         ref={"footer"}
-                        textInputStyle={textInputStyle}
+                        messageTools={messageTools}
                         textInputProps={textInputProps}
-                        sendPress={this.sendPress}
-                        sendImageMessagesFn={sendImageMessagesFn}
+                        sendMessageFn={this.sendPress}
                         showMessageTool={this.showMessageTools}
-                        checkImageFn={this._checkImageFn}
                         {...this.globalStyle}
 
                     />
@@ -252,7 +211,9 @@ export default class ChatPage extends Component {
                            popStyle={{top: dialogY}}
                            triangleStyle={{left: dialogX}}
                            showDialogPopFn={this.showPopDialog}
-                           PopDialogConfig={DIALOG_POP_CONFIG}
+                           popToolButtons={popToolButtons}
+                           {...this.globalStyle}
+
 
                 />
 

@@ -1,11 +1,5 @@
 import React, {PureComponent} from 'react'
-import {
-    View,
-    Text,
-    StyleSheet,
-    TouchableOpacity
-} from 'react-native'
-import Colors from "../utils/Colors";
+import {Text, TouchableOpacity, View} from 'react-native'
 
 export default class SelectCircleButton extends PureComponent {
 

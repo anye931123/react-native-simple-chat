@@ -1,9 +1,5 @@
-import React,{Component} from 'react';
-import {
-    View,
-    LayoutAnimation,
-   UIManager
-} from 'react-native';
+import React, {Component} from 'react';
+import {LayoutAnimation, UIManager, View} from 'react-native';
 
 export default class AnimationContainer extends Component{
 

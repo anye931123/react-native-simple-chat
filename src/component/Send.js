@@ -1,12 +1,8 @@
-import React,{PureComponent} from 'react';
-import {
-    View,
-    TouchableOpacity,
-    Text,
-    StyleSheet
-} from 'react-native';
+import React, {PureComponent} from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 import Colors from '../utils/Colors';
+
 export default class Send extends PureComponent{
 
     constructor(){
@@ -14,7 +10,7 @@ export default class Send extends PureComponent{
     }
 
     render(){
-        const {sendStatus,sendStyle,sendTextStyle,sendPress}= this.props
+        const {sendStatus,sendStyle,sendTextStyle,sendUnPressStyle,sendPress}= this.props
         return(
             <View style={styles.container}>
                 <TouchableOpacity
@@ -23,7 +19,7 @@ export default class Send extends PureComponent{
                             sendPress()
                         }
                     }}
-                    style={[styles.sendBtn,sendStyle,!sendStatus&&{backgroundColor:Colors.gray}]}
+                    style={[styles.sendBtn,sendStyle,!sendStatus&&sendUnPressStyle]}
                 >
                     <Text style={[styles.sendBtnText,sendTextStyle]}>发送</Text>
                 </TouchableOpacity>

@@ -28,15 +28,8 @@ export default class PureText extends PureComponent {
         return{left,right,leftColor,rightColor}
     }
 
-    render() {
-        const {messageData,nameShow, position} = this.props
-        const {message} = messageData
-
-        let paddingNum = nameShow ? 6 : 4
-
-        const {left, right,leftColor,rightColor}=this.getContainerStyle()
-
-        console.log("和研发是非得失第三方的",rightColor,leftColor)
+    getTriangleStyle=(leftColor,rightColor)=>{
+        const {nameShow, position} = this.props
         let triangleStyle={}
         if(position){
             if(nameShow){
@@ -66,6 +59,18 @@ export default class PureText extends PureComponent {
 
         }
 
+        return triangleStyle
+    }
+    render() {
+        const {messageData,nameShow, position} = this.props
+        const {message} = messageData
+
+        let paddingNum = nameShow ? 6 : 4
+
+        const {left, right,leftColor,rightColor}=this.getContainerStyle()
+
+        let triangleStyle=this.getTriangleStyle(leftColor,rightColor)
+
         return (<View style={[styles.container, {
             justifyContent: position ? 'flex-end' : 'flex-start',
             paddingRight: paddingNum,
@@ -74,7 +79,7 @@ export default class PureText extends PureComponent {
             <View style={triangleStyle}/>
             <View
                 style={[styles.textContainer, {backgroundColor: position ? rightColor : leftColor}]}>
-                <Text style={[styles.textStyle, position ? right : left]}>{message}</Text>
+                <Text  style={[styles.textStyle, position ? right : left]}>{message}</Text>
             </View>
 
 

@@ -1,16 +1,9 @@
 import React, {Component} from 'react'
-import {
-    View,
-    StyleSheet,
-
-} from 'react-native'
+import {View,} from 'react-native'
 import PictureItem from './PictureItem';
-import FlatListView from '../../widget/FlatListView';
-import {styles} from '../../styles/messageButtomTool'
+import FlatListView from '../../src/widget/FlatListView';
 import PictureToolBar from './PictureToolBar'
-import {windowWidth} from '../../utils/utils'
 import _ from 'lodash'
-import CheckImagesMode from '../CheckImagesMode'
 
 const data=[
 "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1525606198244&di=ff00cc54f82e25492c8bf723342f8c08&imgtype=0&src=http%3A%2F%2Fpic.qiantucdn.com%2F58pic%2F22%2F06%2F55%2F57b2d98e109c6_1024.jpg",

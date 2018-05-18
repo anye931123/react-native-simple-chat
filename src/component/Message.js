@@ -1,14 +1,7 @@
 import React, {PureComponent} from 'react';
-import {
-    View,
-    Image,
-    StyleSheet,
-    Text
-} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import BubbleView from './bubble/BubbleView';
 import Avatar from './Avatar';
-
-import Colors from '../utils/Colors';
 import TimeLabel from './TimeLabel'
 
 import RankAndName from './RankAndName'

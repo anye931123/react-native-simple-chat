@@ -2,10 +2,7 @@
  * Created by anye on 2017/6/25.
  */
 import React, {PureComponent} from 'react';
-import {
-    Animated,
-    FlatList,
-} from 'react-native';
+import {Animated, FlatList,} from 'react-native';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 const VIEWABILITY_CONFIG = {

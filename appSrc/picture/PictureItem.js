@@ -1,15 +1,10 @@
 import React, {Component} from 'react';
 
-import {
-    View,
-    Image,
-    TouchableOpacity,
-    StyleSheet,
-    Text
-} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
-import SelectCircleButton from '../../widget/SelectCircleButton'
-import ImageView from '../../widget/ImageView'
+import SelectCircleButton from '../../src/widget/SelectCircleButton'
+import ImageView from '../../src/widget/ImageView'
+
 export default class PictureItem extends Component {
 
     constructor() {

@@ -1,21 +1,12 @@
 import React, {Component} from 'react';
 
-import {
-    View,
-    StyleSheet,
-    TouchableOpacity,
-    Image,
-    Text,
-    PanResponder,
-    Animated,
-    LayoutAnimation
-} from 'react-native'
-import {styles} from '../../styles/messageButtomTool'
-import {stylesVoice} from './styles'
-import * as imgs from "../../images";
-import {windowHeight, windowWidth} from '../../utils/utils'
+import {Animated, Image, PanResponder, Text, TouchableOpacity, View} from 'react-native'
+import {styles} from '../../src/styles/messageButtomTool'
+import {stylesVoice} from './styles/index'
+import * as imgs from "../images/index";
+import {windowHeight, windowWidth} from '../../src/utils/utils'
 import _ from 'lodash'
-import Colors from "../../utils/Colors";
+import Colors from "../../src/utils/Colors";
 import {VOICE_MAX_SIZE, VOICE_MIN_SIZE} from './config'
 
 export default class VoiceView extends Component {
