@@ -27,10 +27,14 @@ export default class Footer extends Component {
         this.refs.MessageTools.resetButton()
     }
 
+    _addPress=()=>{
+        this.refs.MessageTools.showMessageTool()
+    }
+
     render() {
         const {message} = this.state
         const {sendMessageFn, textInputProps, animation, showMessageTool, footerStyle = {},messageTools} = this.props
-        const {footerContainer,textInputStyle, sendStyle, sendTextStyle,sendUnPressStyle,messageToolContainerStyle} = footerStyle
+        const {footerContainer,textInputStyle, sendStyle,addStyle,addIcon, sendTextStyle,sendUnPressStyle,messageToolContainerStyle} = footerStyle
         return (
             <KeyboardAvoidingView
                 behavior={'position'}
@@ -50,6 +54,9 @@ export default class Footer extends Component {
                         sendStyle={sendStyle}
                         sendTextStyle={sendTextStyle}
                         sendUnPressStyle={sendUnPressStyle}
+                        addStyle={addStyle}
+                        addIcon={addIcon}
+                        addPress={this._addPress}
                         sendPress={() => {
                             sendMessageFn&&sendMessageFn(message)
                             this.setState({

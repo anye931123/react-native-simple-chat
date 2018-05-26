@@ -11,10 +11,10 @@ export default class DialogPopButton extends PureComponent{
 
 
     render(){
-        const {icon,text,onPress,style={},PopDialogButtonProps}=this.props
+        const {icon,text,onPress,style={},PopDialogButtonProps,message,rowId}=this.props
         const {iconStyle,textStyle}=style
         return(<TouchableOpacity
-        onPress={onPress}
+        onPress={()=>onPress&&onPress(message,rowId)}
         style={styles.container}
         {...PopDialogButtonProps}
         >

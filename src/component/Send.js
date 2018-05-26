@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View,Image} from 'react-native';
 
 import Colors from '../utils/Colors';
 
@@ -10,18 +10,22 @@ export default class Send extends PureComponent{
     }
 
     render(){
-        const {sendStatus,sendStyle,sendTextStyle,sendUnPressStyle,sendPress}= this.props
+        const {sendStatus,sendStyle,sendTextStyle,sendUnPressStyle,sendPress,addPress,addStyle,addIcon}= this.props
         return(
             <View style={styles.container}>
                 <TouchableOpacity
                     onPress={()=>{
                         if(sendStatus){
                             sendPress()
+                            return
                         }
+                        addStyle&&addPress()
                     }}
-                    style={[styles.sendBtn,sendStyle,!sendStatus&&sendUnPressStyle]}
+                    style={!sendStatus&&addStyle?{}:[styles.sendBtn,sendStyle,!sendStatus&&sendUnPressStyle]}
                 >
-                    <Text style={[styles.sendBtnText,sendTextStyle]}>发送</Text>
+                    {!sendStatus&&addStyle? <Image style={addStyle} source={addIcon}/>:
+                        <Text style={[styles.sendBtnText,sendTextStyle]}>发送</Text>
+                    }
                 </TouchableOpacity>
             </View>
 

@@ -25,9 +25,8 @@ export default class MessageTools extends Component {
             return
         }
        this.showMessageTool()
-
-
     }
+
 
     showMessageTool=()=>{
         const { messageTools,showMessageTool} = this.props

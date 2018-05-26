@@ -14,24 +14,24 @@ export default class ChatPage extends Component {
 
     constructor(props) {
         super(props)
-        this.selectStyle=props.styleType&&STYLES[props.styleType]?STYLES[props.styleType]:STYLES['QQ']
-        this.globalStyle=_.defaultsDeep(props.style,this.selectStyle)
+        this.selectStyle = props.styleType && STYLES[props.styleType] ? STYLES[props.styleType] : STYLES['QQ']
+        this.globalStyle = _.defaultsDeep(props.style, this.selectStyle)
         this.state = {
             keyboardHeight: 0,
             visible: false,
             dialogY: 0,
             dialogX: 0,
-            isMessageToolShow:0,
-            messages:props.messages,
-            rowId:undefined,
-            message:undefined
+            isMessageToolShow: 0,
+            messages: props.messages,
+            rowId: undefined,
+            message: undefined
         }
     }
 
 
     _keyboardDidShow = (e) => {
         this.setState({
-            isMessageToolShow:0
+            isMessageToolShow: 0
         })
 
     }
@@ -42,7 +42,7 @@ export default class ChatPage extends Component {
         })
 
     }
-    _keyboardWillShow=(e)=>{
+    _keyboardWillShow = (e) => {
         this.setState({
             keyboardHeight: e.endCoordinates.height,
         })
@@ -53,11 +53,13 @@ export default class ChatPage extends Component {
         this.keyboardWillShowListener = Keyboard.addListener('keyboardWillShow', this._keyboardWillShow);
         this.keyboardwillHideListener = Keyboard.addListener('keyboardWillHide', this._keyboardWillHide);
     }
+
     componentWillUnmount() {
         this.keyboardDidShowListener.remove();
         this.keyboardwillHideListener.remove();
         this.keyboardWillShowListener.remove();
     }
+
     componentWillReceiveProps(nextProps) {
         const {messages} = nextProps
 
@@ -69,15 +71,14 @@ export default class ChatPage extends Component {
         }
 
         this.setState({
-            messages:nextProps.messages
+            messages: nextProps.messages
         })
     }
 
 
-
-    showPopDialog = (message,rowId, x, y) => {
-        const {popToolButtons,onPopToolShowFn}=this.props
-        if(!popToolButtons||popToolButtons.length==0){
+    showPopDialog = (message, rowId, x, y) => {
+        const {popToolButtonsConfig} = this.props
+        if (!popToolButtonsConfig || popToolButtonsConfig.length == 0) {
             return
         }
         if (message) {
@@ -85,15 +86,15 @@ export default class ChatPage extends Component {
                 dialogY: y,
                 dialogX: x,
                 visible: true,
-
-
-
+                message: message,
+                rowId: rowId
             })
 
-            onPopToolShowFn&&onPopToolShowFn( message, rowId)
         } else {
             this.setState({
-                visible: false
+                visible: false,
+                message: undefined,
+                rowId: undefined
             })
         }
 
@@ -152,10 +153,10 @@ export default class ChatPage extends Component {
     }
 
     showMessageTools = (view) => {
-        if(view!=null){
-            this.setState({ isMessageToolShow:0.1})
-        }else {
-            this.setState({ isMessageToolShow:0})
+        if (view != null) {
+            this.setState({isMessageToolShow: 0.1})
+        } else {
+            this.setState({isMessageToolShow: 0})
         }
 
     }
@@ -163,9 +164,11 @@ export default class ChatPage extends Component {
     render() {
         const {
             textInputProps,
-            inverted=true,
+            inverted = true,
             popToolButtons,
-            messageTools
+            messageTools,
+            popToolButtonsConfig,
+            popToolButton
         } = this.props
 
 
@@ -182,18 +185,18 @@ export default class ChatPage extends Component {
 
         return (
             <View style={this.globalStyle.chatStyle}>
-                 <FlatListView
-                        ref={'messageList'}
-                        horizontal={false}
-                        data={_.clone(messages)}
-                        renderItem={this.renderRow}
-                        numColumns={1}
-                        inverted={inverted}
+                <FlatListView
+                    ref={'messageList'}
+                    horizontal={false}
+                    data={_.clone(messages)}
+                    renderItem={this.renderRow}
+                    numColumns={1}
+                    inverted={inverted}
 
-                    />
+                />
                 <View style={{
                     marginBottom: Platform.select({
-                        android:isMessageToolShow,
+                        android: isMessageToolShow,
                         ios: keyboardHeight
                     })
                 }}>
@@ -211,7 +214,10 @@ export default class ChatPage extends Component {
                            popStyle={{top: dialogY}}
                            triangleStyle={{left: dialogX}}
                            showDialogPopFn={this.showPopDialog}
-                           popToolButtons={popToolButtons}
+                           popToolButtonsConfig={popToolButtonsConfig}
+                           popToolButton={popToolButton}
+                           message={message}
+                           rowId={rowId}
                            {...this.globalStyle}
 
 

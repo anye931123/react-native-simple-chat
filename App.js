@@ -13,8 +13,8 @@ import Colors from "./src/utils/Colors";
 let DIALOG_POP_CONFIG = [{
     icon: imgs.copy,
     text: "复制",
-    onPress: () => {
-        const {messageData}=this.props
+    onPress: (message,rowId) => {
+        console.log("HAHAHHAHA",message,rowId)
     }
 },
     {
@@ -247,25 +247,30 @@ export default class App extends Component {
                 styleType={'QQ'}
                 style={{
                     popDialogStyle:{
-                        paddingTop:4,
-                        paddingBottom:4
+                        paddingTop:2,
+                        paddingBottom:2
                     },
                     footerStyle:{
+                        footerContainer:{
+                            alignItems:"center",
+
+                        },
                         messageToolContainerStyle:{
                             flexDirection: 'row',
                             paddingTop: 3,
                             paddingBottom: 5
-                        }
+                        },
+                        // addIcon:imgs.add,
+                        // addStyle:{
+                        //     width:15,
+                        //     height:15,
+                        //     resizeMode:'contain'
+                        // }
                     }
                 }}
-                popToolButtons={_.map(DIALOG_POP_CONFIG, (value, index) => <PopDialogButton
-                    key={index}
-                    icon={value.icon}
-                    onPress={value.onPress}
-                    text={value.text}
-                />)}
+                popToolButtonsConfig={DIALOG_POP_CONFIG}
+                popToolButton={PopDialogButton}
                 messageTools={this.messageTools}
-                onPopToolShowFn={(message,rowId)=>{console.log("哈哈哈哈哈哈》》》",message,rowId)}}
                 sendFn={this.sendMessage}
                 sendImageMessagesFn={this.sendImageMessagesFn}
                 messages={data}
